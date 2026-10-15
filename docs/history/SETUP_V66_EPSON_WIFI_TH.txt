@@ -1,0 +1,40 @@
+V66 — Epson Wi‑Fi Auto Print
+
+สิ่งที่เพิ่ม
+- พิมพ์ใบเสร็จอัตโนมัติหลังชำระเงินสำเร็จ
+- พิมพ์บัตรคิวอัตโนมัติต่อจากใบเสร็จ
+- ไม่เปิด AirPrint / ไม่เปิดหน้าต่าง Print / ไม่ต้องกด Print ซ้ำ
+- iPad ส่งคำสั่งไป Raspberry Pi และ Raspberry Pi ส่งงานพิมพ์ไป Epson ผ่าน Wi‑Fi
+- ตั้งค่า IP เครื่องปริ้นและ Device ID จากหน้า "จัดการร้าน"
+- ปุ่ม "ทดสอบพิมพ์"
+- ปุ่มพิมพ์ซ้ำในประวัติออเดอร์ส่งตรงไป Epson
+- ปรับ layout ใบเสร็จ browser fallback เป็น 80mm และจัดโลโก้ตรงกลาง
+- Direct Epson receipt ใช้โลโก้ raster ตรงกลาง เหมาะกับกระดาษ 80mm
+
+โครงสร้าง
+iPad POS --Wi‑Fi--> Raspberry Pi --Wi‑Fi/LAN--> Epson TM-m30III
+Customer Display --LAN/Wi‑Fi--> Raspberry Pi
+ไม่มีสายระหว่าง iPad กับ Raspberry Pi หรือ iPad กับ Epson
+
+ตั้งค่าหลังได้เครื่องปริ้น
+1. ให้ Epson, Raspberry Pi และ iPad อยู่ Router/Wi‑Fi วงเดียวกัน
+2. ดู IP ของ Epson เช่น 192.168.1.60
+3. แนะนำตั้ง DHCP Reservation ใน Router เพื่อให้ IP Epson ไม่เปลี่ยน
+4. เปิด POS > จัดการร้าน > เครื่องพิมพ์ใบเสร็จ Epson
+5. ใส่ IP
+6. Device ID เริ่มต้นใช้ local_printer
+7. เปิด "เปิดใช้เครื่องปริ้น Wi‑Fi"
+8. เปิด "พิมพ์ใบเสร็จอัตโนมัติ" และ "พิมพ์บัตรคิวอัตโนมัติ"
+9. กดบันทึก
+10. กดทดสอบพิมพ์
+
+ใช้งานจริง
+เลือกสินค้า > ชำระเงินสำเร็จ > Raspberry Pi ส่งใบเสร็จไป Epson > Epson ตัดกระดาษ
+จากนั้นระบบส่งบัตรคิว > Epson พิมพ์และตัดกระดาษอีกครั้ง
+
+หมายเหตุสำคัญ
+- V66 ใช้ Epson ePOS-Print ผ่าน local network
+- ต้องเปิด/รองรับ ePOS-Print ใน Epson TM-m30III
+- ถ้าปุ่ม Test Print ขึ้น error ให้ตรวจ IP, Wi‑Fi, Device ID และ ePOS setting ของเครื่อง
+- หากเครื่องจริงใช้ Device ID อื่น ให้เปลี่ยนจาก local_printer ในหน้า POS ได้
+- ระบบ POS/Customer Display/Cloud/Audit/Backup เดิมยังอยู่ครบ

@@ -1,0 +1,85 @@
+FISH POS V70 — ติดตั้งจริง Raspberry Pi + Customer Display + Epson Wi‑Fi
+
+สิ่งที่ V70 ทำ
+1) Raspberry Pi เป็น POS Server + Customer Display bridge + Epson Print Server
+2) เปิด Raspberry Pi แล้ว server.js เริ่มเองด้วย systemd
+3) จอ HDMI ที่ต่อ Raspberry Pi เปิด customer.html แบบ Chromium Kiosk อัตโนมัติ
+4) เมื่อ iPad กดเมนูชิ้นแรก Customer Display เปลี่ยนจากหน้าต้อนรับเป็นรายการออเดอร์ทันที
+5) เมื่อเลือกเงินสด Customer Display แสดงยอดรับ/เงินทอนแบบสด
+6) เมื่อเลือก QR Customer Display แสดง QR และยอดชำระ
+7) หลังชำระเงินสำเร็จ Customer Display แสดงสำเร็จ
+8) Epson พิมพ์ใบเสร็จ/บัตรคิวผ่าน Wi‑Fi โดย Raspberry Pi โดยตรง ไม่เปิดหน้าต่าง AirPrint
+9) ถ้า Wi‑Fi สะดุดตอนพิมพ์ใบเสร็จ ระบบลองส่งซ้ำให้อีก 1 ครั้ง
+10) ข้อมูล POS เดิม / Audit / Backup / Remote / Stock / Preorder ยังอยู่
+
+A. ต่ออุปกรณ์
+- Raspberry Pi -> HDMI -> จอลูกค้า
+- Raspberry Pi -> Power
+- Epson -> Power
+- iPad + Raspberry Pi + Epson เชื่อม Router/Wi‑Fi วงเดียวกัน
+- ไม่ต้องต่อสาย iPad กับ Pi หรือ Printer
+
+B. เตรียม Raspberry Pi OS
+- ใช้ Raspberry Pi OS with Desktop
+- เปิด Desktop Autologin เพื่อให้ Chromium Kiosk เปิดเองหลังบูต
+- เชื่อม Wi‑Fi ร้าน
+
+C. เอาโฟลเดอร์ fish-pos-v70 ไปไว้ใน Raspberry Pi
+ตัวอย่าง: /home/<username>/fish-pos-v70
+เปิด Terminal แล้ว:
+  cd ~/fish-pos-v70
+  chmod +x install-rpi-v70.sh
+  ./install-rpi-v70.sh
+
+Installer จะติดตั้ง Node/npm/Chromium, npm dependencies, สร้าง fish-pos.service และตั้ง Customer Display kiosk
+
+D. เช็ก IP Raspberry Pi
+  hostname -I
+ตัวอย่างได้ 192.168.1.50
+จาก iPad Safari เปิด:
+  http://192.168.1.50:8080/
+แล้ว Share > Add to Home Screen
+
+E. ตั้ง Epson
+1. หา IP ของ Epson จาก Network Status/Router เช่น 192.168.1.60
+2. เข้า POS ด้วย Owner
+3. จัดการร้าน > เครื่องพิมพ์ใบเสร็จ Epson
+4. IP = 192.168.1.60 (ใช้ IP จริงของเครื่อง)
+5. Device ID เริ่มที่ local_printer
+6. เปิดใช้เครื่องปริ้น Wi‑Fi
+7. เปิดพิมพ์ใบเสร็จอัตโนมัติ
+8. เปิดพิมพ์บัตรคิวอัตโนมัติถ้าต้องการ
+9. บันทึก > ทดสอบพิมพ์
+
+ถ้า Test Print ไม่ออก:
+- เช็ก Pi/Epson อยู่ network เดียวกัน
+- จาก Pi: ping <PRINTER-IP>
+- เปิด Epson WebConfig ด้วย browser ที่ http://<PRINTER-IP>/
+- ตรวจว่า ePOS-Print เปิดใช้งาน และ Device ID ถูกต้อง
+- ดู log: sudo journalctl -u fish-pos.service -f
+
+F. ทดสอบระบบจริง
+1. Reboot Pi: sudo reboot
+2. รอ Desktop ขึ้นประมาณ 8–15 วินาที
+3. Customer Display ควรเปิดเต็มจอเอง
+4. iPad เปิด POS URL
+5. แตะสินค้า 1 รายการ -> จอลูกค้าต้องเปลี่ยนทันที
+6. เพิ่ม/ลดจำนวน -> จอลูกค้าต้องตาม
+7. กด QR -> QR + ยอดขึ้นจอลูกค้า
+8. หรือเงินสด -> รับเงิน/เงินทอนขึ้นจอลูกค้า
+9. ชำระสำเร็จ -> จอลูกค้าขึ้นสำเร็จ และ Epson พิมพ์ตามค่าที่เปิดไว้
+
+G. คำสั่งดูสถานะ
+  sudo systemctl status fish-pos.service
+  sudo journalctl -u fish-pos.service -f
+  sudo systemctl restart fish-pos.service
+
+H. URL สำคัญ
+POS บน iPad: http://<PI-IP>:8080/
+Customer Display บน Pi: http://127.0.0.1:8080/customer.html
+Remote Dashboard local: http://<PI-IP>:8080/remote-dashboard.html
+
+หมายเหตุ
+- แนะนำทำ DHCP Reservation ให้ Raspberry Pi และ Epson เพื่อ IP ไม่เปลี่ยน
+- Remote Dashboard จากต่างประเทศยังต้องตั้ง Cloud Server แยกต่างหาก
+- QR PromptPay ไม่ควรถือว่าชำระสำเร็จอัตโนมัติจนกว่าจะเชื่อม Merchant/Bank API จริง

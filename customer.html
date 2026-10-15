@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>Customer Display • ร้านทิพย์เกษรเมี่ยงปลาเผา</title>
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+  <main class="display-shell" id="displayShell">
+    <header class="display-header display-header-v63">
+      <div class="customer-brand-logo customer-brand-logo-v63">
+        <img src="assets/thipkasorn-logo.png" alt="โลโก้ร้านทิพย์เกษรเมี่ยงปลาเผา">
+      </div>
+      <div class="brand-copy brand-copy-v63">
+        <h1 id="shopName">ร้านทิพย์เกษรเมี่ยงปลาเผา</h1>
+        <p>ปลาเผาบ้านดุงซิตี้ • สด • ใหม่ทุกวัน</p>
+      </div>
+      <div class="order-chip" id="orderChip">#001</div>
+    </header>
+
+    <section class="screen screen-idle active" data-screen="idle">
+      <div class="idle-center">
+        <div class="idle-brand-v70" aria-hidden="true"><span>🐟</span></div>
+        <div class="idle-kicker-v70">พร้อมรับออเดอร์</div>
+        <h2>ยินดีต้อนรับ</h2>
+        <p>เมื่อพนักงานเริ่มเลือกเมนู รายการของคุณจะแสดงทันที</p>
+        <div class="idle-note">ทิพย์เกษรเมี่ยงปลาเผา • สดใหม่ทุกวัน</div>
+      </div>
+    </section>
+
+    <section class="screen screen-cart" data-screen="cart">
+      <div class="cart-layout">
+        <div class="cart-list-wrap">
+          <div class="section-title"><span>รายการของคุณ</span><small id="itemCount">0 รายการ</small></div>
+          <div id="customerItems" class="customer-items"></div>
+        </div>
+        <aside class="total-card">
+          <span>ยอดที่ต้องชำระ</span>
+          <strong id="cartTotal">฿0</strong>
+          <div id="cartDiscountRow" class="discount-row hidden"><span>ส่วนลด</span><b id="cartDiscount">฿0</b></div>
+          <small>กรุณาตรวจสอบรายการก่อนชำระเงิน</small>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen screen-payment" data-screen="cash">
+      <div class="payment-layout cash-layout">
+        <div class="payment-copy">
+          <div class="eyebrow">ชำระด้วยเงินสด</div>
+          <h2>ยอดชำระ</h2>
+          <strong class="payment-total" id="cashTotal">฿0</strong>
+        </div>
+        <div class="cash-summary-card">
+          <div class="cash-line"><span>ลูกค้าจ่าย</span><b id="cashReceived">฿0</b></div>
+          <div class="cash-line change-line"><span id="cashResultLabel">เงินทอน</span><strong id="cashChange">฿0</strong></div>
+          <div id="cashHint" class="cash-hint">รอพนักงานกรอกจำนวนเงิน</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen screen-payment" data-screen="qr">
+      <div class="qr-layout">
+        <div class="qr-copy">
+          <div class="eyebrow">ชำระด้วย QR Code</div>
+          <h2>กรุณาสแกนเพื่อชำระเงิน</h2>
+          <strong class="payment-total" id="qrTotal">฿0</strong>
+          <p>หลังชำระเงิน กรุณารอสักครู่จนพนักงานยืนยันยอด</p>
+        </div>
+        <div class="qr-card">
+          <img id="customerQr" alt="PromptPay QR Code">
+          <div id="qrWaiting" class="qr-waiting">กำลังเตรียม QR Code…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen screen-success" data-screen="success">
+      <div class="success-center">
+        <div class="success-icon">✓</div>
+        <h2>ชำระเงินสำเร็จ</h2>
+        <strong id="successTotalCustomer">฿0</strong>
+        <div id="successCashCustomer" class="success-cash hidden">
+          <span>รับเงิน <b id="successReceivedCustomer">฿0</b></span>
+          <span>เงินทอน <b id="successChangeCustomer">฿0</b></span>
+        </div>
+        <p>ขอบคุณค่ะ • กรุณารอรับออเดอร์</p>
+      </div>
+    </section>
+
+    <footer class="display-footer">
+      <span id="connectionDot" class="connection-dot"></span>
+      <span id="connectionText">กำลังเชื่อมต่อ POS…</span>
+      <span class="footer-spacer"></span>
+      <span id="clockText">--:--</span>
+    </footer>
+  </main>
+  <script src="customer.js"></script>
+</body>
+</html>

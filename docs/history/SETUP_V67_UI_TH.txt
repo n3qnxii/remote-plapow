@@ -1,0 +1,11 @@
+V67 UI UPDATE
+- หน้า "รายงานการขาย": เอาการ์ด "ดูยอดขายจากที่อื่นแบบเรียลไทม์" ออก เหลือปุ่ม "ดูยอดออนไลน์" ด้านบน และทำให้เด่นขึ้น
+- Remote Dashboard ไม่ถาม Dashboard Token แล้ว เปิดแล้วดูรายงานได้ทันที
+- การตั้งค่า Cloud Sync ย้ายไปอยู่ "จัดการร้าน > ข้อมูลสำรอง > ตั้งค่า Cloud / Remote Backup"
+- หน้าจัดการร้าน: เอาข้อความอธิบาย 2 บรรทัดใต้เครื่องปริ้นออก
+- ใบเสร็จ: ขยับโลโก้ไปทางขวาเล็กน้อยทั้ง Browser fallback และ Epson direct print
+- Customer Display: ชื่อร้านขยับเข้าใกล้โลโก้, ชื่อเมนูอ่านง่ายขึ้น, ราคาขยายและทำเป็นกรอบสีส้มอ่อน
+- ระบบ V66 เดิม เช่น Epson Auto Print, Raspberry Pi, Customer Display, Audit, Backup, Offline Sync, Remote Dashboard, Preorder, Stock และรายงาน ยังคงอยู่
+
+คำเตือน Remote Dashboard:
+เพราะ V67 ไม่ใช้รหัสผ่าน ผู้ที่มี URL ของ Dashboard และเข้าถึง Server ได้จะสามารถเห็นยอดขายได้

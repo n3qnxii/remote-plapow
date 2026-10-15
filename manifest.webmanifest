@@ -1,0 +1,9 @@
+{
+  "name": "ร้านทิพย์เกษรเมี่ยงปลาเผา",
+  "short_name": "ทิพย์เกษร POS",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#e76613",
+  "lang": "th"
+}

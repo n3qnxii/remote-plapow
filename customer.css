@@ -1,0 +1,1461 @@
+*{box-sizing:border-box}
+:root{--orange:#E76613;--orange-dark:#C95308;--soft:#FFF3E8;--ink:#20160F;--muted:#7D6E63;--line:#E9E1D8;--green:#159A67;--red:#C94343;--bg:#FBF8F4}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Sarabun","Noto Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-width:320px;min-height:240px}.hidden{display:none!important}
+.display-shell{width:100vw;height:100vh;display:grid;grid-template-rows:auto 1fr auto;background:linear-gradient(145deg,#fff 0%,#fff 55%,#fff8f1 100%)}
+.display-header{height:66px;padding:10px 18px;display:flex;align-items:center;gap:11px;background:#fff;border-bottom:1px solid var(--line)}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:var(--orange);color:#fff;display:grid;place-items:center;flex:0 0 auto}.brand-mark svg{width:28px;height:28px}
+.brand-copy{min-width:0}.brand-copy h1{margin:0;font-size:clamp(15px,2.4vw,21px);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand-copy p{margin:2px 0 0;color:var(--muted);font-size:clamp(9px,1.4vw,12px)}
+.order-chip{margin-left:auto;border:1px solid #F2C89E;background:var(--soft);color:var(--orange-dark);font-weight:900;font-size:clamp(14px,2vw,19px);padding:8px 12px;border-radius:999px;white-space:nowrap}
+.screen{display:none;min-height:0;padding:15px 18px}.screen.active{display:block}
+.idle-center,.success-center{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.idle-icon,.success-icon{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;font-size:38px;font-weight:900;margin-bottom:12px}.idle-icon{background:var(--soft);color:var(--orange)}.success-icon{background:#E7F8F1;color:var(--green)}
+.idle-center h2,.success-center h2{font-size:clamp(28px,5vw,44px);margin:0;font-weight:900}.idle-center p,.success-center p{margin:7px 0;color:var(--muted);font-size:clamp(13px,2vw,18px)}.idle-note{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 15px;color:var(--orange-dark);font-weight:700}
+.cart-layout{height:100%;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(190px,.7fr);gap:15px}.cart-list-wrap,.total-card{background:#fff;border:1px solid var(--line);border-radius:18px;min-height:0}.cart-list-wrap{padding:13px 15px;display:flex;flex-direction:column}.section-title{display:flex;align-items:center;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--line);font-weight:800;font-size:clamp(15px,2.2vw,19px)}.section-title small{font-weight:600;color:var(--muted);font-size:11px}.customer-items{overflow:auto;min-height:0;padding-right:3px}.customer-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 2px;border-bottom:1px dashed var(--line)}.customer-item:last-child{border-bottom:0}.customer-item-name{min-width:0}.customer-item-name b{display:block;font-size:clamp(14px,2.1vw,18px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.customer-item-name small{display:block;color:var(--muted);margin-top:2px;font-size:clamp(10px,1.5vw,12px)}.customer-item-price{font-size:clamp(16px,2.5vw,21px);font-weight:900;color:var(--orange-dark);white-space:nowrap}
+.total-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:15px;background:linear-gradient(160deg,#fff 0%,#fff7ef 100%)}.total-card>span{color:var(--muted);font-size:clamp(12px,1.7vw,15px);font-weight:700}.total-card>strong{font-size:clamp(36px,7vw,62px);line-height:1;color:var(--orange);margin:10px 0 12px;font-weight:900}.total-card>small{color:var(--muted);font-size:clamp(10px,1.5vw,12px);line-height:1.45}.discount-row{width:100%;display:flex;justify-content:space-between;padding:8px 0;margin-bottom:8px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.discount-row b{color:var(--ink)}
+.payment-layout{height:100%;display:grid;grid-template-columns:minmax(0,.9fr) minmax(240px,1.1fr);gap:16px;align-items:stretch}.payment-copy{display:flex;flex-direction:column;justify-content:center;padding:8px 12px}.eyebrow{display:inline-flex;align-self:flex-start;background:var(--soft);color:var(--orange-dark);font-weight:800;border-radius:999px;padding:7px 11px;font-size:clamp(11px,1.5vw,13px)}.payment-copy h2{font-size:clamp(19px,3vw,28px);margin:12px 0 2px}.payment-total{font-size:clamp(42px,8vw,70px);line-height:1.05;color:var(--orange);font-weight:900}.payment-copy p{color:var(--muted);font-size:clamp(11px,1.6vw,14px);line-height:1.45;margin:12px 0 0}.cash-summary-card,.qr-card{background:#fff;border:1px solid var(--line);border-radius:20px;min-height:0}.cash-summary-card{display:flex;flex-direction:column;justify-content:center;padding:18px 22px}.cash-line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:clamp(15px,2vw,18px)}.cash-line b{font-size:clamp(20px,3vw,28px)}.change-line{border:0;padding-top:20px}.change-line strong{font-size:clamp(30px,5vw,45px);color:var(--green)}.cash-hint{text-align:center;margin-top:8px;padding:8px;border-radius:10px;background:#F6F3EF;color:var(--muted);font-size:11px}.cash-hint.short{background:#FFF0EE;color:var(--red)}.cash-hint.ready{background:#EAF8F2;color:var(--green)}
+.qr-layout{height:100%;display:grid;grid-template-columns:minmax(0,.95fr) minmax(220px,1fr);gap:16px}.qr-card{display:grid;place-items:center;padding:10px;position:relative}.qr-card img{display:none;max-width:min(78%,310px);max-height:88%;aspect-ratio:1/1;object-fit:contain}.qr-card img.ready{display:block}.qr-waiting{color:var(--muted);font-weight:700;font-size:13px;text-align:center}
+.success-center>strong{font-size:clamp(43px,8vw,72px);color:var(--green);line-height:1;margin:10px 0;font-weight:900}.success-cash{display:flex;gap:20px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 16px;margin:4px 0 5px}.success-cash span{color:var(--muted);font-size:12px}.success-cash b{color:var(--ink);font-size:15px;margin-left:4px}
+.display-footer{height:33px;padding:0 14px;display:flex;align-items:center;gap:7px;border-top:1px solid var(--line);background:#fff;color:var(--muted);font-size:10px}.connection-dot{width:7px;height:7px;border-radius:50%;background:#D3CAC2}.connection-dot.online{background:var(--green)}.connection-dot.preview{background:#E9A126}.footer-spacer{flex:1}#clockText{font-weight:700;color:#5D5148}
+@media(max-width:520px),(max-height:360px){.display-header{height:54px;padding:7px 12px}.brand-mark{width:36px;height:36px;border-radius:10px}.brand-mark svg{width:24px;height:24px}.brand-copy p{display:none}.screen{padding:10px 12px}.display-footer{height:28px}.cart-layout,.payment-layout,.qr-layout{gap:10px}.total-card>strong{margin:6px 0 8px}.customer-item{padding:6px 2px}.cash-line{padding:10px 0}.cash-summary-card{padding:12px 16px}.idle-icon,.success-icon{width:56px;height:56px;font-size:29px;margin-bottom:7px}.idle-center h2,.success-center h2{font-size:28px}}
+@media(max-width:430px){.cart-layout{grid-template-columns:minmax(0,1.4fr) minmax(135px,.6fr)}.payment-layout,.qr-layout{grid-template-columns:.85fr 1.15fr}.screen{padding:8px}.order-chip{padding:6px 9px}.total-card{padding:9px}.total-card>small{display:none}.payment-copy{padding:4px}.payment-copy p{display:none}.qr-card{padding:6px}}
+
+
+/* =====================================================================
+   V55 — Customer QR fullscreen display
+   QR payment uses nearly the entire customer display for easy scanning.
+   ===================================================================== */
+.screen[data-screen="qr"]{padding:0!important;background:#fff}
+.screen[data-screen="qr"].active{display:block!important}
+.screen[data-screen="qr"] .qr-layout{height:100%;display:grid!important;grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)!important;gap:0!important;background:#fff}
+.screen[data-screen="qr"] .qr-copy{display:flex;flex-direction:column;justify-content:center;padding:18px 24px 18px 28px;background:linear-gradient(145deg,#fff 0%,#fff9f3 100%);border-right:1px solid var(--line)}
+.screen[data-screen="qr"] .qr-copy h2{font-size:clamp(24px,4vw,40px)!important;line-height:1.15;margin:14px 0 8px;font-weight:900}
+.screen[data-screen="qr"] .qr-copy .payment-total{font-size:clamp(58px,10vw,96px)!important;margin:4px 0 8px}
+.screen[data-screen="qr"] .qr-copy p{font-size:clamp(13px,1.8vw,18px)!important;line-height:1.45;margin-top:10px;color:#5f5148}
+.screen[data-screen="qr"] .qr-card{border:0!important;border-radius:0!important;padding:12px!important;display:grid!important;place-items:center;background:#fff;overflow:hidden}
+.screen[data-screen="qr"] .qr-card img.ready{display:block!important;width:min(92%,calc(100vh - 115px))!important;height:min(92%,calc(100vh - 115px))!important;max-width:none!important;max-height:none!important;object-fit:contain;image-rendering:auto}
+.screen[data-screen="qr"] .qr-waiting{font-size:clamp(16px,2.4vw,24px);font-weight:800}
+@media(max-height:520px){
+  .screen[data-screen="qr"] .qr-layout{grid-template-columns:minmax(235px,.75fr) minmax(0,1.25fr)!important}
+  .screen[data-screen="qr"] .qr-copy{padding:10px 18px}
+  .screen[data-screen="qr"] .qr-copy h2{font-size:clamp(20px,3.5vw,30px)!important;margin:8px 0 2px}
+  .screen[data-screen="qr"] .qr-copy .payment-total{font-size:clamp(48px,8vw,72px)!important}
+  .screen[data-screen="qr"] .qr-copy p{font-size:12px!important;margin-top:5px}
+  .screen[data-screen="qr"] .qr-card{padding:5px!important}
+  .screen[data-screen="qr"] .qr-card img.ready{width:min(96%,calc(100vh - 94px))!important;height:min(96%,calc(100vh - 94px))!important}
+}
+
+/* =====================================================================
+   V56 — Official shop logo on Customer Display
+   ===================================================================== */
+.customer-logo-wrap{
+  width:118px;
+  height:50px;
+  flex:0 0 118px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:10px;
+  background:#fff;
+}
+.customer-shop-logo{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:520px),(max-height:360px){
+  .customer-logo-wrap{width:94px;height:40px;flex-basis:94px}
+}
+@media(max-width:430px){
+  .customer-logo-wrap{width:82px;height:36px;flex-basis:82px}
+}
+
+
+/* =====================================================================
+   V57 — Customer Display Black Edition
+   Image-free vector fish logo; QR remains large for 5-inch display.
+   ===================================================================== */
+:root{
+  --cd-black:#050505;
+  --cd-panel:#111111;
+  --cd-panel-2:#171717;
+  --cd-line:#2B2B2B;
+  --cd-white:#FFFFFF;
+  --cd-muted:#A7A7A7;
+  --cd-orange:#F28C28;
+}
+html,body{
+  background:var(--cd-black)!important;
+  color:var(--cd-white)!important;
+}
+.display-shell{
+  background:var(--cd-black)!important;
+}
+.display-header{
+  background:#080808!important;
+  border-bottom:1px solid var(--cd-line)!important;
+  color:var(--cd-white)!important;
+}
+.customer-logo-wrap,.customer-shop-logo{display:none!important}
+.customer-fish-mark{
+  width:58px;
+  height:42px;
+  flex:0 0 58px;
+  display:grid;
+  place-items:center;
+  color:var(--cd-orange);
+}
+.customer-fish-mark svg{
+  width:100%;
+  height:100%;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.brand-copy h1{color:#fff!important}
+.brand-copy p{color:#A9A9A9!important}
+.order-chip{
+  background:#1B130C!important;
+  border-color:#5A351A!important;
+  color:#FFAA59!important;
+}
+.screen{background:var(--cd-black)!important}
+.idle-center h2,.success-center h2{color:#fff!important}
+.idle-center p,.success-center p{color:#A7A7A7!important}
+.idle-icon{
+  background:#18110A!important;
+  color:#F28C28!important;
+  border:1px solid #4A2D18!important;
+}
+.idle-note{
+  background:#121212!important;
+  border-color:#303030!important;
+  color:#F6B678!important;
+}
+.cart-list-wrap,.total-card,.cash-summary-card{
+  background:var(--cd-panel)!important;
+  border-color:var(--cd-line)!important;
+}
+.section-title,.customer-item{border-color:#303030!important}
+.section-title small,.customer-item-name small,.total-card>span,.total-card>small{
+  color:#A7A7A7!important;
+}
+.customer-item-name b{color:#fff!important}
+.customer-item-price{color:#F6A04A!important}
+.total-card{
+  background:linear-gradient(160deg,#111 0%,#17110C 100%)!important;
+}
+.total-card>strong,.payment-total{color:#F28C28!important}
+.discount-row{border-color:#303030!important;color:#A7A7A7!important}
+.discount-row b{color:#fff!important}
+
+.screen[data-screen="cash"] .payment-layout{
+  background:#050505!important;
+}
+.screen[data-screen="cash"] .payment-copy{
+  background:#090909!important;
+  border-radius:20px;
+}
+.eyebrow{
+  background:#1A120B!important;
+  color:#F3A65E!important;
+}
+.payment-copy h2{color:#fff!important}
+.payment-copy p{color:#A7A7A7!important}
+.cash-line{
+  border-color:#303030!important;
+  color:#BDBDBD!important;
+}
+.cash-line b{color:#fff!important}
+.change-line strong{color:#54C783!important}
+.cash-hint{background:#1B1B1B!important;color:#A7A7A7!important}
+.cash-hint.short{background:#271313!important;color:#FF8A8A!important}
+.cash-hint.ready{background:#102018!important;color:#6FD49A!important}
+
+/* QR screen: black surrounding UI + bright white scan panel.
+   QR dimensions intentionally stay large. */
+.screen[data-screen="qr"]{
+  padding:0!important;
+  background:#050505!important;
+}
+.screen[data-screen="qr"] .qr-layout{
+  height:100%!important;
+  display:grid!important;
+  grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)!important;
+  gap:12px!important;
+  padding:12px!important;
+  background:#050505!important;
+}
+.screen[data-screen="qr"] .qr-copy{
+  background:#0D0D0D!important;
+  border:1px solid #292929!important;
+  border-radius:22px!important;
+  padding:18px 24px!important;
+  color:#fff!important;
+}
+.screen[data-screen="qr"] .qr-copy h2{color:#fff!important}
+.screen[data-screen="qr"] .qr-copy p{color:#A7A7A7!important}
+.screen[data-screen="qr"] .qr-card{
+  border:1px solid #2D2D2D!important;
+  border-radius:22px!important;
+  padding:10px!important;
+  background:#FFFFFF!important;
+  overflow:hidden!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,.04),0 18px 60px rgba(0,0,0,.5)!important;
+}
+.screen[data-screen="qr"] .qr-card img.ready{
+  display:block!important;
+  width:min(94%,calc(100vh - 112px))!important;
+  height:min(94%,calc(100vh - 112px))!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+}
+.qr-waiting{color:#4A4A4A!important}
+
+.success-icon{
+  background:#102018!important;
+  color:#58D08A!important;
+  border:1px solid #235438!important;
+}
+.success-center>strong{color:#58D08A!important}
+.success-cash{
+  background:#111!important;
+  border-color:#2C2C2C!important;
+}
+.success-cash span{color:#A7A7A7!important}
+.success-cash b{color:#fff!important}
+
+.display-footer{
+  background:#080808!important;
+  border-top-color:#292929!important;
+  color:#868686!important;
+}
+#clockText{color:#D8D8D8!important}
+.connection-dot{background:#525252!important}
+.connection-dot.online{background:#34C77A!important}
+.connection-dot.preview{background:#F28C28!important}
+
+@media(max-height:520px){
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(225px,.7fr) minmax(0,1.3fr)!important;
+    gap:8px!important;
+    padding:8px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:10px 15px!important;
+    border-radius:16px!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:5px!important;
+    border-radius:16px!important;
+  }
+  .screen[data-screen="qr"] .qr-card img.ready{
+    width:min(97%,calc(100vh - 94px))!important;
+    height:min(97%,calc(100vh - 94px))!important;
+  }
+}
+@media(max-width:430px){
+  .customer-fish-mark{width:48px;height:34px;flex-basis:48px}
+}
+
+
+/* =====================================================================
+   V58 — Customer Display Daylight / High-Visibility White Edition
+   Optimized for bright shopfront environments and easy QR scanning.
+   ===================================================================== */
+:root{
+  --day-bg:#F7F8FA;
+  --day-card:#FFFFFF;
+  --day-ink:#111318;
+  --day-muted:#636A73;
+  --day-line:#D9DEE5;
+  --day-orange:#E96F12;
+  --day-orange-soft:#FFF2E5;
+  --day-blue:#245E9F;
+  --day-blue-soft:#EDF5FF;
+  --day-green:#24834B;
+  --day-green-soft:#EAF7EF;
+  --day-red:#C94444;
+}
+html,body{
+  background:var(--day-bg)!important;
+  color:var(--day-ink)!important;
+}
+.display-shell{
+  background:var(--day-bg)!important;
+}
+.display-header{
+  background:#FFFFFF!important;
+  border-bottom:2px solid #E1E4E8!important;
+  color:var(--day-ink)!important;
+  box-shadow:0 2px 10px rgba(0,0,0,.04)!important;
+}
+.customer-fish-mark{
+  color:var(--day-orange)!important;
+  width:62px!important;
+  height:44px!important;
+  flex-basis:62px!important;
+}
+.brand-copy h1{
+  color:#111318!important;
+  font-weight:900!important;
+  letter-spacing:-.2px!important;
+}
+.brand-copy p{
+  color:#555D66!important;
+  font-weight:650!important;
+}
+.order-chip{
+  background:#FFF3E7!important;
+  border:2px solid #F2B374!important;
+  color:#A84D09!important;
+  font-weight:900!important;
+  box-shadow:none!important;
+}
+.screen{
+  background:var(--day-bg)!important;
+}
+
+/* Idle */
+.idle-center h2,.success-center h2{color:#111318!important}
+.idle-center p,.success-center p{color:#60676F!important}
+.idle-icon{
+  background:#FFF3E7!important;
+  color:var(--day-orange)!important;
+  border:2px solid #F4C89D!important;
+}
+.idle-note{
+  background:#FFFFFF!important;
+  border:2px solid #E0E3E7!important;
+  color:#9B4A0C!important;
+  font-weight:800!important;
+}
+
+/* Cart */
+.cart-list-wrap,.total-card,.cash-summary-card{
+  background:#FFFFFF!important;
+  border:2px solid #DDE1E6!important;
+  box-shadow:0 8px 22px rgba(30,40,50,.05)!important;
+}
+.section-title{
+  border-bottom:2px solid #E6E8EB!important;
+  color:#15171A!important;
+}
+.section-title small{
+  color:#697078!important;
+  font-weight:700!important;
+}
+.customer-item{
+  border-bottom:1px solid #E5E7EA!important;
+}
+.customer-item-name b{
+  color:#121417!important;
+  font-weight:850!important;
+}
+.customer-item-name small{
+  color:#5E666F!important;
+}
+.customer-item-price{
+  color:#B34F08!important;
+  font-weight:900!important;
+}
+.total-card{
+  background:#FFFFFF!important;
+}
+.total-card>span{
+  color:#616870!important;
+  font-weight:800!important;
+}
+.total-card>strong{
+  color:#D45B08!important;
+  text-shadow:none!important;
+}
+.total-card>small{
+  color:#5F666E!important;
+  font-weight:650!important;
+}
+.discount-row{
+  border-color:#E0E3E6!important;
+  color:#616870!important;
+}
+.discount-row b{color:#111318!important}
+
+/* Cash */
+.screen[data-screen="cash"] .payment-layout{
+  background:var(--day-bg)!important;
+}
+.screen[data-screen="cash"] .payment-copy{
+  background:#FFFFFF!important;
+  border:2px solid #DDE1E6!important;
+  box-shadow:0 8px 22px rgba(30,40,50,.05)!important;
+}
+.eyebrow{
+  background:#FFF1E3!important;
+  color:#A84A08!important;
+  font-weight:850!important;
+}
+.payment-copy h2{color:#111318!important}
+.payment-total{color:#D45B08!important}
+.payment-copy p{
+  color:#5F666E!important;
+  font-weight:650!important;
+}
+.cash-line{
+  border-color:#E4E7EA!important;
+  color:#5F666E!important;
+}
+.cash-line b{
+  color:#111318!important;
+  font-weight:900!important;
+}
+.change-line strong{
+  color:#237A45!important;
+}
+.cash-hint{
+  background:#F3F5F7!important;
+  color:#555D66!important;
+  border:1px solid #DEE2E6!important;
+}
+.cash-hint.short{
+  background:#FFF0F0!important;
+  color:#B73535!important;
+  border-color:#F0CACA!important;
+}
+.cash-hint.ready{
+  background:#EAF7EF!important;
+  color:#237A45!important;
+  border-color:#B9DEC8!important;
+}
+
+/* QR PAYMENT — maximize white scan surface and contrast for bright daylight */
+.screen[data-screen="qr"]{
+  padding:0!important;
+  background:#F7F8FA!important;
+}
+.screen[data-screen="qr"] .qr-layout{
+  height:100%!important;
+  display:grid!important;
+  grid-template-columns:minmax(220px,.68fr) minmax(0,1.32fr)!important;
+  gap:14px!important;
+  padding:14px!important;
+  background:#F7F8FA!important;
+}
+.screen[data-screen="qr"] .qr-copy{
+  background:#FFFFFF!important;
+  border:2px solid #D9DEE5!important;
+  border-radius:22px!important;
+  padding:20px 24px!important;
+  color:#111318!important;
+  box-shadow:0 8px 24px rgba(25,35,45,.05)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+.screen[data-screen="qr"] .qr-copy h2{
+  color:#111318!important;
+  font-weight:900!important;
+  line-height:1.2!important;
+}
+.screen[data-screen="qr"] .qr-copy p{
+  color:#555D66!important;
+  font-weight:650!important;
+  line-height:1.5!important;
+}
+.screen[data-screen="qr"] .payment-total{
+  color:#C85108!important;
+  font-weight:950!important;
+}
+.screen[data-screen="qr"] .qr-card{
+  background:#FFFFFF!important;
+  border:3px solid #C9D0D8!important;
+  border-radius:24px!important;
+  padding:10px!important;
+  overflow:hidden!important;
+  box-shadow:0 12px 34px rgba(24,34,44,.08)!important;
+  display:grid!important;
+  place-items:center!important;
+}
+.screen[data-screen="qr"] .qr-card img.ready{
+  display:block!important;
+  width:min(96%,calc(100vh - 100px))!important;
+  height:min(96%,calc(100vh - 100px))!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  image-rendering:auto!important;
+  filter:contrast(1.08)!important;
+}
+.qr-waiting{
+  color:#4D5660!important;
+  font-weight:800!important;
+}
+
+/* Success */
+.success-icon{
+  background:#EAF7EF!important;
+  color:#24834B!important;
+  border:2px solid #B7DCC6!important;
+}
+.success-center>strong{
+  color:#237A45!important;
+}
+.success-cash{
+  background:#FFFFFF!important;
+  border:2px solid #DDE1E6!important;
+  box-shadow:0 6px 18px rgba(30,40,50,.04)!important;
+}
+.success-cash span{color:#60676F!important}
+.success-cash b{color:#111318!important}
+
+/* Footer */
+.display-footer{
+  background:#FFFFFF!important;
+  border-top:2px solid #E1E4E8!important;
+  color:#68707A!important;
+}
+#clockText{
+  color:#1D2228!important;
+  font-weight:800!important;
+}
+.connection-dot{background:#B5BBC2!important}
+.connection-dot.online{background:#2FA260!important}
+.connection-dot.preview{background:#E38A24!important}
+
+/* Touch/display legibility */
+.customer-item,.cash-line{
+  min-height:52px!important;
+}
+@media(max-height:520px){
+  .display-header{height:58px!important}
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(210px,.62fr) minmax(0,1.38fr)!important;
+    gap:8px!important;
+    padding:8px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:10px 14px!important;
+    border-radius:16px!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:5px!important;
+    border-radius:16px!important;
+  }
+  .screen[data-screen="qr"] .qr-card img.ready{
+    width:min(98%,calc(100vh - 82px))!important;
+    height:min(98%,calc(100vh - 82px))!important;
+  }
+}
+@media(max-width:520px){
+  .cart-layout{
+    grid-template-columns:minmax(0,1.45fr) minmax(170px,.7fr)!important;
+    gap:10px!important;
+  }
+}
+
+
+/* =====================================================================
+   V59 — QR Fit & Polish
+   Prevent QR from overflowing below the display and improve scan framing.
+   ===================================================================== */
+.screen[data-screen="qr"]{
+  min-height:0!important;
+  overflow:hidden!important;
+}
+
+.screen[data-screen="qr"] .qr-layout{
+  min-height:0!important;
+  height:100%!important;
+  align-items:stretch!important;
+  overflow:hidden!important;
+}
+
+.screen[data-screen="qr"] .qr-copy,
+.screen[data-screen="qr"] .qr-card{
+  min-height:0!important;
+  height:auto!important;
+  overflow:hidden!important;
+}
+
+.screen[data-screen="qr"] .qr-card{
+  position:relative!important;
+  padding:22px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* Important: fit by BOTH available width and height.
+   The extra white padding acts as QR quiet zone and avoids edge clipping. */
+.screen[data-screen="qr"] .qr-card img.ready{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100% - 8px)!important;
+  max-height:calc(100% - 8px)!important;
+  aspect-ratio:1 / 1!important;
+  object-fit:contain!important;
+  margin:auto!important;
+  flex:0 1 auto!important;
+  filter:contrast(1.08)!important;
+}
+
+/* Slightly rebalance the two columns so the QR remains large
+   without touching the bottom edge. */
+.screen[data-screen="qr"] .qr-layout{
+  grid-template-columns:minmax(260px,.70fr) minmax(0,1.30fr)!important;
+  gap:18px!important;
+  padding:16px 18px 18px!important;
+}
+
+.screen[data-screen="qr"] .qr-copy{
+  padding:24px 28px!important;
+}
+
+@media(max-height:760px){
+  .screen[data-screen="qr"] .qr-layout{
+    padding:10px 12px 12px!important;
+    gap:12px!important;
+    grid-template-columns:minmax(230px,.66fr) minmax(0,1.34fr)!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:14px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:16px 20px!important;
+  }
+}
+
+@media(max-height:560px){
+  .screen[data-screen="qr"] .qr-layout{
+    padding:7px 9px 9px!important;
+    gap:9px!important;
+    grid-template-columns:minmax(210px,.62fr) minmax(0,1.38fr)!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:10px!important;
+  }
+  .screen[data-screen="qr"] .qr-card img.ready{
+    max-width:calc(100% - 4px)!important;
+    max-height:calc(100% - 4px)!important;
+  }
+}
+
+
+/* =====================================================================
+   V60 — Official supplied shop logo on customer display
+   ===================================================================== */
+.customer-fish-mark{display:none!important}
+.customer-brand-logo{
+  width:188px!important;
+  height:60px!important;
+  flex:0 0 188px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  overflow:hidden!important;
+}
+.customer-brand-logo img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  display:block!important;
+}
+.display-header{
+  min-height:76px!important;
+  padding-top:6px!important;
+  padding-bottom:6px!important;
+}
+/* Logo already contains the shop name; keep adjacent header copy smaller and clean */
+.customer-brand-logo + .brand-copy h1{
+  font-size:18px!important;
+  line-height:1.2!important;
+}
+.customer-brand-logo + .brand-copy p{
+  font-size:11px!important;
+}
+
+@media(max-height:560px){
+  .customer-brand-logo{
+    width:156px!important;
+    height:48px!important;
+    flex-basis:156px!important;
+  }
+  .display-header{
+    min-height:62px!important;
+  }
+}
+
+
+/* =====================================================================
+   V61 — Small top-left logo on Customer Display
+   ===================================================================== */
+.display-header-v61{
+  min-height:66px!important;
+  height:66px!important;
+  padding:5px 18px 5px 12px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:0!important;
+}
+.customer-brand-logo-v61{
+  width:154px!important;
+  height:54px!important;
+  flex:0 0 154px!important;
+  margin:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  overflow:hidden!important;
+}
+.customer-brand-logo-v61 img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  display:block!important;
+}
+.brand-copy-hidden-v61{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  overflow:hidden!important;
+  clip:rect(0 0 0 0)!important;
+  white-space:nowrap!important;
+}
+.display-header-v61 .order-chip{
+  margin-left:auto!important;
+  min-width:88px!important;
+  height:44px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:20px!important;
+}
+@media(max-height:560px){
+  .display-header-v61{
+    min-height:58px!important;
+    height:58px!important;
+    padding:4px 12px 4px 9px!important;
+  }
+  .customer-brand-logo-v61{
+    width:134px!important;
+    height:48px!important;
+    flex-basis:134px!important;
+  }
+  .display-header-v61 .order-chip{
+    height:40px!important;
+    min-width:76px!important;
+    font-size:18px!important;
+  }
+}
+
+
+/* =====================================================================
+   V62 — Customer Display QR Hero Layout
+   Matches the latest approved design: large QR, clean white daylight UI.
+   ===================================================================== */
+
+/* Header: compact logo left, queue chip right */
+.display-header-v61{
+  min-height:78px!important;
+  height:78px!important;
+  padding:8px 18px 8px 14px!important;
+  background:#FFFFFF!important;
+  border-bottom:1px solid #E5E7EB!important;
+}
+.customer-brand-logo-v61{
+  width:170px!important;
+  height:60px!important;
+  flex:0 0 170px!important;
+}
+.display-header-v61 .order-chip{
+  min-width:94px!important;
+  height:48px!important;
+  border:2px solid #F2A35E!important;
+  background:#FFF9F3!important;
+  color:#A84909!important;
+  border-radius:22px!important;
+  font-size:22px!important;
+  font-weight:900!important;
+}
+
+/* QR payment screen overall */
+.screen[data-screen="qr"]{
+  background:#F7F8FA!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+.screen[data-screen="qr"] .qr-layout{
+  height:100%!important;
+  min-height:0!important;
+  display:grid!important;
+  grid-template-columns:minmax(330px,.84fr) minmax(0,1.66fr)!important;
+  gap:20px!important;
+  padding:18px!important;
+  align-items:stretch!important;
+  overflow:hidden!important;
+}
+
+/* Left info panel */
+.screen[data-screen="qr"] .qr-copy{
+  min-height:0!important;
+  background:#FFFFFF!important;
+  border:1.5px solid #E0E3E7!important;
+  border-radius:24px!important;
+  padding:30px 30px 26px!important;
+  box-shadow:0 10px 30px rgba(20,30,40,.05)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+.screen[data-screen="qr"] .eyebrow{
+  width:max-content!important;
+  margin-bottom:14px!important;
+  padding:8px 13px!important;
+  border-radius:999px!important;
+  background:#FFF2E6!important;
+  color:#B6520A!important;
+  font-size:14px!important;
+  font-weight:850!important;
+}
+.screen[data-screen="qr"] .qr-copy h2{
+  margin:0 0 12px!important;
+  color:#111318!important;
+  font-size:clamp(30px,3.2vw,46px)!important;
+  line-height:1.16!important;
+  letter-spacing:-.5px!important;
+  font-weight:900!important;
+}
+.screen[data-screen="qr"] .payment-total{
+  display:block!important;
+  margin:10px 0 12px!important;
+  color:#D65C08!important;
+  font-size:clamp(58px,7.6vw,92px)!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:-1.5px!important;
+}
+.screen[data-screen="qr"] .qr-copy p{
+  margin:8px 0 0!important;
+  color:#5B646E!important;
+  font-size:clamp(16px,1.65vw,22px)!important;
+  line-height:1.45!important;
+  font-weight:700!important;
+}
+
+/* Right QR hero panel */
+.screen[data-screen="qr"] .qr-card{
+  position:relative!important;
+  min-height:0!important;
+  height:100%!important;
+  box-sizing:border-box!important;
+  background:#FFFFFF!important;
+  border:2px solid #C9D0D8!important;
+  border-radius:26px!important;
+  padding:20px!important;
+  overflow:hidden!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-shadow:0 12px 34px rgba(24,34,44,.06)!important;
+}
+
+/* QR grows to the largest safe square inside the right card */
+.screen[data-screen="qr"] .qr-card img.ready{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100% - 10px)!important;
+  max-height:calc(100% - 10px)!important;
+  aspect-ratio:1 / 1!important;
+  object-fit:contain!important;
+  margin:auto!important;
+  filter:contrast(1.12)!important;
+}
+
+/* Footer stays visible and clean */
+.display-footer{
+  min-height:42px!important;
+  height:42px!important;
+  padding:0 16px!important;
+  background:#FFFFFF!important;
+  border-top:1px solid #E2E5E8!important;
+  color:#5F6871!important;
+  font-weight:700!important;
+}
+
+/* Short displays: keep QR huge but fully inside */
+@media(max-height:760px){
+  .display-header-v61{
+    min-height:68px!important;
+    height:68px!important;
+  }
+  .customer-brand-logo-v61{
+    width:150px!important;
+    height:52px!important;
+    flex-basis:150px!important;
+  }
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(285px,.78fr) minmax(0,1.72fr)!important;
+    gap:12px!important;
+    padding:10px 12px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:20px 22px!important;
+    border-radius:20px!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:12px!important;
+    border-radius:20px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy h2{
+    font-size:clamp(26px,3vw,38px)!important;
+  }
+  .screen[data-screen="qr"] .payment-total{
+    font-size:clamp(52px,7vw,76px)!important;
+  }
+}
+
+/* Very small customer displays */
+@media(max-height:560px){
+  .display-header-v61{
+    min-height:58px!important;
+    height:58px!important;
+  }
+  .customer-brand-logo-v61{
+    width:130px!important;
+    height:46px!important;
+    flex-basis:130px!important;
+  }
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(230px,.68fr) minmax(0,1.82fr)!important;
+    gap:8px!important;
+    padding:7px 8px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:14px 15px!important;
+    border-radius:16px!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:8px!important;
+    border-radius:16px!important;
+  }
+  .screen[data-screen="qr"] .qr-card img.ready{
+    max-width:calc(100% - 4px)!important;
+    max-height:calc(100% - 4px)!important;
+  }
+  .display-footer{
+    min-height:34px!important;
+    height:34px!important;
+  }
+}
+
+
+/* =====================================================================
+   V63 — Customer Display final layout matching approved screenshot
+   ===================================================================== */
+.display-header-v63{
+  height:106px!important;
+  min-height:106px!important;
+  padding:10px 24px 10px 22px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:16px!important;
+  background:#FFFFFF!important;
+  border-bottom:1px solid #E6E8EB!important;
+}
+.customer-brand-logo-v63{
+  width:248px!important;
+  height:88px!important;
+  flex:0 0 248px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  overflow:hidden!important;
+}
+.customer-brand-logo-v63 img{
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+}
+.brand-copy-v63{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  min-width:0!important;
+  flex:1 1 auto!important;
+}
+.brand-copy-v63 h1{
+  margin:0!important;
+  color:#111318!important;
+  font-size:30px!important;
+  line-height:1.18!important;
+  font-weight:900!important;
+  letter-spacing:-.4px!important;
+}
+.brand-copy-v63 p{
+  margin:6px 0 0!important;
+  color:#59616A!important;
+  font-size:18px!important;
+  line-height:1.25!important;
+  font-weight:600!important;
+}
+.display-header-v63 .order-chip{
+  margin-left:auto!important;
+  min-width:124px!important;
+  height:64px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 20px!important;
+  border:2px solid #F28C28!important;
+  border-radius:22px!important;
+  background:#FFF9F3!important;
+  color:#A84A08!important;
+  font-size:31px!important;
+  font-weight:900!important;
+}
+
+/* QR screen shell */
+.screen[data-screen="qr"]{
+  padding:0!important;
+  background:#F7F8FA!important;
+  overflow:hidden!important;
+}
+.screen[data-screen="qr"] .qr-layout{
+  height:100%!important;
+  min-height:0!important;
+  display:grid!important;
+  grid-template-columns:minmax(500px,.92fr) minmax(0,1.18fr)!important;
+  gap:22px!important;
+  padding:22px!important;
+  overflow:hidden!important;
+  align-items:stretch!important;
+}
+
+/* Left payment information card */
+.screen[data-screen="qr"] .qr-copy{
+  min-height:0!important;
+  height:auto!important;
+  background:#FFFFFF!important;
+  border:1.5px solid #DFE3E8!important;
+  border-radius:22px!important;
+  padding:28px 34px!important;
+  box-shadow:0 10px 26px rgba(20,30,40,.045)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+.screen[data-screen="qr"] .qr-copy::after{
+  content:"1. เปิดแอปธนาคาร     2. สแกน QR Code     3. ยืนยันการชำระเงิน";
+  display:block!important;
+  margin-top:26px!important;
+  padding:18px 16px!important;
+  border-radius:16px!important;
+  background:#FFF9F3!important;
+  border:1px solid #F3E5D7!important;
+  color:#252525!important;
+  text-align:center!important;
+  font-size:16px!important;
+  line-height:1.45!important;
+  font-weight:750!important;
+  word-spacing:2px!important;
+}
+.screen[data-screen="qr"] .eyebrow{
+  width:max-content!important;
+  margin:0 auto 18px!important;
+  padding:10px 18px!important;
+  border-radius:999px!important;
+  background:#FFF2E5!important;
+  color:#B95109!important;
+  font-size:18px!important;
+  line-height:1!important;
+  font-weight:850!important;
+}
+.screen[data-screen="qr"] .eyebrow::before{
+  content:"▦";
+  margin-right:8px!important;
+  font-size:19px!important;
+}
+.screen[data-screen="qr"] .qr-copy h2{
+  margin:0!important;
+  text-align:center!important;
+  color:#111318!important;
+  font-size:41px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+  letter-spacing:-.5px!important;
+}
+.screen[data-screen="qr"] .payment-total::before{
+  content:"ยอดชำระ";
+  display:block!important;
+  margin-bottom:9px!important;
+  color:#626A73!important;
+  font-size:19px!important;
+  font-weight:650!important;
+  letter-spacing:0!important;
+}
+.screen[data-screen="qr"] .payment-total{
+  display:block!important;
+  margin:28px 0 22px!important;
+  padding:24px 0!important;
+  border-top:1px dashed #C8CDD3!important;
+  border-bottom:1px dashed #C8CDD3!important;
+  color:#D45B08!important;
+  text-align:center!important;
+  font-size:98px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:-2px!important;
+}
+.screen[data-screen="qr"] .qr-copy p{
+  margin:0!important;
+  text-align:center!important;
+  color:#59616A!important;
+  font-size:19px!important;
+  line-height:1.45!important;
+  font-weight:650!important;
+}
+.screen[data-screen="qr"] .qr-copy p::before{
+  content:"♡";
+  color:#2E9D62!important;
+  font-weight:900!important;
+  margin-right:9px!important;
+}
+
+/* Right QR: almost full card, guaranteed no overflow */
+.screen[data-screen="qr"] .qr-card{
+  min-height:0!important;
+  height:100%!important;
+  position:relative!important;
+  background:#FFFFFF!important;
+  border:2px solid #F1A15A!important;
+  border-radius:24px!important;
+  padding:20px!important;
+  overflow:hidden!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-shadow:0 10px 28px rgba(20,30,40,.04)!important;
+}
+.screen[data-screen="qr"] .qr-card img.ready{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100% - 6px)!important;
+  max-height:calc(100% - 6px)!important;
+  aspect-ratio:1 / 1!important;
+  object-fit:contain!important;
+  margin:auto!important;
+  filter:contrast(1.13)!important;
+}
+
+/* Footer like the screenshot */
+.display-footer{
+  min-height:54px!important;
+  height:54px!important;
+  padding:0 28px!important;
+  background:#FFFFFF!important;
+  border-top:1px solid #E3E6E9!important;
+  color:#525B64!important;
+  font-size:16px!important;
+  font-weight:650!important;
+}
+#clockText{
+  color:#111318!important;
+  font-size:18px!important;
+  font-weight:900!important;
+}
+
+/* Responsive scaling for the common 5-inch landscape display */
+@media(max-height:760px){
+  .display-header-v63{
+    height:82px!important;
+    min-height:82px!important;
+    padding:7px 16px!important;
+    gap:12px!important;
+  }
+  .customer-brand-logo-v63{
+    width:185px!important;
+    height:68px!important;
+    flex-basis:185px!important;
+  }
+  .brand-copy-v63 h1{font-size:23px!important}
+  .brand-copy-v63 p{font-size:13px!important;margin-top:3px!important}
+  .display-header-v63 .order-chip{
+    min-width:96px!important;
+    height:50px!important;
+    font-size:23px!important;
+  }
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(340px,.82fr) minmax(0,1.28fr)!important;
+    gap:12px!important;
+    padding:12px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:18px 22px!important;
+    border-radius:18px!important;
+  }
+  .screen[data-screen="qr"] .eyebrow{
+    font-size:14px!important;
+    padding:8px 12px!important;
+    margin-bottom:12px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy h2{
+    font-size:30px!important;
+  }
+  .screen[data-screen="qr"] .payment-total{
+    font-size:72px!important;
+    margin:18px 0 14px!important;
+    padding:16px 0!important;
+  }
+  .screen[data-screen="qr"] .payment-total::before{
+    font-size:15px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy p{
+    font-size:14px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy::after{
+    margin-top:16px!important;
+    padding:12px 10px!important;
+    font-size:12px!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:10px!important;
+    border-radius:18px!important;
+  }
+  .display-footer{
+    height:40px!important;
+    min-height:40px!important;
+    padding:0 14px!important;
+    font-size:12px!important;
+  }
+  #clockText{font-size:13px!important}
+}
+
+@media(max-height:560px){
+  .display-header-v63{
+    height:64px!important;
+    min-height:64px!important;
+  }
+  .customer-brand-logo-v63{
+    width:150px!important;
+    height:52px!important;
+    flex-basis:150px!important;
+  }
+  .brand-copy-v63 h1{font-size:18px!important}
+  .brand-copy-v63 p{font-size:11px!important}
+  .display-header-v63 .order-chip{
+    min-width:78px!important;
+    height:42px!important;
+    font-size:18px!important;
+  }
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(260px,.70fr) minmax(0,1.40fr)!important;
+    gap:8px!important;
+    padding:8px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{
+    padding:11px 14px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy h2{font-size:23px!important}
+  .screen[data-screen="qr"] .payment-total{
+    font-size:55px!important;
+    margin:10px 0 8px!important;
+    padding:10px 0!important;
+  }
+  .screen[data-screen="qr"] .qr-copy::after{
+    margin-top:9px!important;
+    padding:8px!important;
+    font-size:10px!important;
+  }
+  .screen[data-screen="qr"] .qr-card{
+    padding:7px!important;
+  }
+  .display-footer{
+    height:32px!important;
+    min-height:32px!important;
+  }
+}
+
+/* =====================================================================
+   V67 — Customer Display refinement
+   ===================================================================== */
+.display-header-v63{
+  gap:7px!important;
+  padding-left:18px!important;
+}
+.customer-brand-logo-v63{
+  width:205px!important;
+  flex-basis:205px!important;
+}
+.brand-copy-v63{
+  margin-left:-3px!important;
+}
+.brand-copy-v63 h1{
+  font-size:31px!important;
+  letter-spacing:-.45px!important;
+}
+.brand-copy-v63 p{
+  margin-top:4px!important;
+  font-size:17px!important;
+}
+.customer-item{
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:16px!important;
+  padding:12px 4px!important;
+}
+.customer-item-name b{
+  font-size:clamp(17px,2.35vw,22px)!important;
+  line-height:1.22!important;
+}
+.customer-item-name small{
+  font-size:clamp(12px,1.65vw,14px)!important;
+  margin-top:4px!important;
+}
+.customer-item-price{
+  min-width:126px!important;
+  padding:8px 14px!important;
+  border-radius:14px!important;
+  border:1px solid #F2B475!important;
+  background:#FFF3E7!important;
+  color:#B6530C!important;
+  text-align:center!important;
+  font-size:clamp(21px,2.8vw,29px)!important;
+  font-weight:950!important;
+  line-height:1!important;
+  box-shadow:0 2px 8px rgba(199,91,15,.08)!important;
+}
+.total-card>strong{
+  font-size:clamp(38px,6vw,58px)!important;
+}
+@media(max-width:760px){
+  .customer-brand-logo-v63{width:170px!important;flex-basis:170px!important}
+  .brand-copy-v63 h1{font-size:25px!important}
+  .brand-copy-v63 p{font-size:14px!important}
+  .customer-item-price{min-width:104px!important;padding:7px 10px!important}
+}
+@media(max-width:520px),(max-height:360px){
+  .customer-brand-logo-v63{width:120px!important;flex-basis:120px!important}
+  .display-header-v63{gap:4px!important;padding-left:10px!important}
+  .customer-item-price{font-size:19px!important;min-width:90px!important}
+}
+
+/* =====================================================================
+   V68 — Customer Display hierarchy + calm idle motion
+   ===================================================================== */
+/* Item line totals are plain text: the amount due remains the strongest element. */
+.customer-item-price{
+  min-width:0!important;padding:0!important;border:0!important;background:transparent!important;
+  box-shadow:none!important;border-radius:0!important;color:#C85A0B!important;
+  font-size:clamp(18px,2.25vw,25px)!important;font-weight:850!important;text-align:right!important;
+}
+.customer-item-name small{
+  font-size:clamp(15px,1.95vw,18px)!important;font-weight:700!important;color:#59616A!important;
+  margin-top:6px!important;letter-spacing:.05px;
+}
+/* Reduce line-total emphasis slightly while making the payment total unmistakable. */
+.total-card{background:#fff!important;padding:20px!important}
+.total-card>span{font-size:clamp(19px,2.45vw,26px)!important;font-weight:900!important;color:#4F555C!important}
+.total-card>strong{font-size:clamp(68px,9vw,104px)!important;font-weight:950!important;letter-spacing:-2.5px!important;margin:16px 0 15px!important;color:#D85E06!important}
+.total-card>small{font-size:clamp(13px,1.55vw,16px)!important;font-weight:650!important}
+/* Queue number should be readable but not compete with the total. */
+.display-header-v63 .order-chip{font-size:clamp(18px,2.2vw,27px)!important;min-width:104px!important;height:58px!important;padding:0 18px!important}
+/* QR: maximize scan area while keeping balanced whitespace. */
+.screen[data-screen="qr"] .qr-layout{grid-template-columns:minmax(270px,.62fr) minmax(0,1.48fr)!important;gap:10px!important;padding:10px!important}
+.screen[data-screen="qr"] .qr-card{padding:4px!important}
+.screen[data-screen="qr"] .qr-card img.ready{width:min(99%,calc(100vh - 86px))!important;height:min(99%,calc(100vh - 86px))!important}
+.screen[data-screen="qr"] .payment-total{font-size:clamp(64px,9vw,102px)!important;font-weight:950!important}
+/* Waiting screen: subtle branded animation, no extra image assets. */
+.screen-idle{overflow:hidden;position:relative;background:radial-gradient(circle at 50% 48%,#FFF8F0 0,#fff 42%,#F8FAFC 100%)!important}
+.screen-idle::before,.screen-idle::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(235,112,28,.13);inset:50% auto auto 50%;transform:translate(-50%,-50%);pointer-events:none}
+.screen-idle::before{width:330px;height:330px;animation:v68Pulse 3.2s ease-in-out infinite}
+.screen-idle::after{width:430px;height:430px;animation:v68Pulse 3.2s .8s ease-in-out infinite}
+.idle-center{position:relative;z-index:1}
+.idle-icon{width:94px!important;height:94px!important;background:#FFF0E3!important;color:#E86F16!important;border:1px solid #F4C79F!important;box-shadow:0 12px 34px rgba(222,102,20,.12)!important;animation:v68Float 2.8s ease-in-out infinite}
+.idle-center h2{font-size:clamp(34px,4.6vw,52px)!important;letter-spacing:-.5px}
+.idle-center p{font-size:clamp(16px,1.9vw,21px)!important}
+.idle-note{font-size:clamp(14px,1.55vw,17px)!important;background:#fff!important;box-shadow:0 6px 20px rgba(0,0,0,.035)!important}
+@keyframes v68Float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes v68Pulse{0%,100%{opacity:.35;transform:translate(-50%,-50%) scale(.92)}50%{opacity:.8;transform:translate(-50%,-50%) scale(1.04)}}
+@media(prefers-reduced-motion:reduce){.idle-icon,.screen-idle::before,.screen-idle::after{animation:none!important}}
+@media(max-height:560px){
+  .total-card>strong{font-size:58px!important;margin:8px 0!important}.total-card>span{font-size:18px!important}
+  .customer-item-name small{font-size:14px!important}.display-header-v63 .order-chip{height:42px!important;font-size:17px!important;min-width:76px!important}
+  .screen[data-screen="qr"] .qr-card img.ready{width:min(99%,calc(100vh - 76px))!important;height:min(99%,calc(100vh - 76px))!important}
+}
+
+/* =====================================================================
+   V69 — QR payment layout balance / single-line heading
+   ===================================================================== */
+.screen[data-screen="qr"] .qr-layout{
+  grid-template-columns:minmax(390px,.82fr) minmax(0,1.48fr)!important;
+  gap:16px!important;
+  padding:14px 16px!important;
+}
+.screen[data-screen="qr"] .qr-copy{
+  padding:24px 28px!important;
+  justify-content:center!important;
+}
+.screen[data-screen="qr"] .eyebrow{
+  margin:0 0 16px!important;
+  font-size:clamp(13px,1.25vw,16px)!important;
+}
+.screen[data-screen="qr"] .qr-copy h2{
+  white-space:nowrap!important;
+  font-size:clamp(25px,2.55vw,37px)!important;
+  line-height:1.12!important;
+  margin:0 0 16px!important;
+  letter-spacing:-.4px!important;
+}
+.screen[data-screen="qr"] .payment-total{
+  font-size:clamp(68px,7.6vw,96px)!important;
+  margin:4px 0 16px!important;
+  line-height:.98!important;
+}
+.screen[data-screen="qr"] .qr-copy p{
+  font-size:clamp(14px,1.45vw,19px)!important;
+  line-height:1.42!important;
+  margin:4px 0 0!important;
+  max-width:34ch!important;
+}
+.screen[data-screen="qr"] .qr-card{
+  padding:8px!important;
+  border-radius:22px!important;
+}
+.screen[data-screen="qr"] .qr-card img.ready{
+  max-width:calc(100% - 4px)!important;
+  max-height:calc(100% - 4px)!important;
+}
+@media(max-height:760px){
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(340px,.78fr) minmax(0,1.52fr)!important;
+    gap:12px!important;padding:10px 12px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{padding:18px 22px!important}
+  .screen[data-screen="qr"] .qr-copy h2{font-size:clamp(23px,2.45vw,32px)!important;margin-bottom:11px!important}
+  .screen[data-screen="qr"] .payment-total{font-size:clamp(58px,7vw,80px)!important;margin:2px 0 10px!important}
+  .screen[data-screen="qr"] .qr-copy p{font-size:clamp(13px,1.35vw,17px)!important}
+}
+@media(max-height:560px){
+  .screen[data-screen="qr"] .qr-layout{
+    grid-template-columns:minmax(300px,.72fr) minmax(0,1.58fr)!important;
+    gap:8px!important;padding:7px 8px!important;
+  }
+  .screen[data-screen="qr"] .qr-copy{padding:12px 16px!important}
+  .screen[data-screen="qr"] .eyebrow{font-size:12px!important;margin-bottom:8px!important;padding:6px 10px!important}
+  .screen[data-screen="qr"] .qr-copy h2{font-size:22px!important;margin-bottom:7px!important}
+  .screen[data-screen="qr"] .payment-total{font-size:52px!important;margin:0 0 7px!important}
+  .screen[data-screen="qr"] .qr-copy p{font-size:12px!important;line-height:1.3!important}
+  .screen[data-screen="qr"] .qr-card{padding:5px!important}
+}
+@media(max-width:720px){
+  .screen[data-screen="qr"] .qr-copy h2{white-space:normal!important}
+}
+\n/* =====================================================================\n   V70 — production customer display: clean, readable, immediate-order UI\n   ===================================================================== */\n.display-shell{background:#f7f8fa!important}\n.display-header-v63{min-height:92px!important;background:#fff!important;border-bottom:1px solid #e9ecef!important}\n.screen{background:#f7f8fa!important}\n.cart-list-wrap,.total-card,.qr-copy,.qr-card,.payment-copy,.cash-summary-card{box-shadow:0 8px 28px rgba(27,35,45,.045)!important}\n.idle-center{max-width:760px;margin:auto}\n.idle-brand-v70{width:112px;height:112px;border-radius:34px;display:grid;place-items:center;margin:0 auto 14px;background:linear-gradient(145deg,#fff4e9,#fff);border:1px solid #f2d1b3;box-shadow:0 18px 50px rgba(215,101,20,.12);animation:v70Float 3.1s ease-in-out infinite}\n.idle-brand-v70 span{font-size:58px;filter:saturate(.9)}\n.idle-kicker-v70{display:inline-flex;padding:7px 14px;border-radius:999px;background:#fff0e3;color:#b8550e;font-weight:850;font-size:15px;margin-bottom:12px}\n.screen-idle::before{width:380px!important;height:380px!important}.screen-idle::after{width:510px!important;height:510px!important}\n.idle-center h2{font-size:clamp(38px,5vw,58px)!important}.idle-center p{font-size:clamp(17px,2vw,22px)!important;max-width:620px;line-height:1.45}\n.idle-note{font-size:clamp(14px,1.5vw,17px)!important;padding:9px 16px!important}\n.customer-item-name b{font-size:clamp(19px,2.2vw,25px)!important}\n.customer-item-name small{font-size:clamp(16px,1.7vw,20px)!important;font-weight:700!important;color:#60676f!important}\n.customer-item-price{font-size:clamp(19px,2vw,24px)!important;font-weight:850!important;color:#333!important}\n.total-card>span{font-size:clamp(22px,2.2vw,28px)!important;font-weight:850!important;color:#34383d!important}\n.total-card>strong{font-size:clamp(56px,7vw,82px)!important;line-height:1!important;color:#d85c08!important}\n.order-chip{font-size:clamp(22px,2.4vw,31px)!important;padding:8px 16px!important}\n.qr-copy h2{white-space:nowrap!important;font-size:clamp(28px,3vw,42px)!important}\n.qr-copy .payment-total{font-size:clamp(58px,7vw,88px)!important}\n.qr-card img.ready{width:min(96%,720px)!important;height:min(96%,720px)!important;object-fit:contain!important}\n@keyframes v70Float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}\n@media(max-width:900px){.qr-copy h2{white-space:normal!important}.display-header-v63{min-height:78px!important}}\n@media(prefers-reduced-motion:reduce){.idle-brand-v70{animation:none!important}}\n

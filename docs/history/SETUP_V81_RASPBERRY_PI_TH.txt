@@ -1,0 +1,65 @@
+TIPKESORN POS V81 — ติดตั้ง Raspberry Pi + Epson + Customer Display + LIVE
+
+1) แตก ZIP ลง Raspberry Pi แล้วเข้าโฟลเดอร์
+   cd ~/tipkesorn-pos-v81
+   chmod +x install-rpi-v81.sh start-public-dashboard.sh
+   ./install-rpi-v81.sh
+
+2) หลังติดตั้ง
+   sudo systemctl status fish-pos.service --no-pager
+   hostname -I
+
+   POS บน iPad:
+   http://<PI-IP>:8080/
+
+   LIVE ในร้าน:
+   http://<PI-IP>:8080/live
+
+   Customer Display:
+   http://<PI-IP>:8080/customer.html
+
+3) Customer Display
+   ต่อจอ HDMI เข้ากับ Raspberry Pi แล้ว reboot:
+   sudo reboot
+   Chromium จะเปิด customer.html แบบ kiosk อัตโนมัติ
+
+4) Epson
+   - Raspberry Pi, iPad และ Epson อยู่ Wi-Fi วงเดียวกัน
+   - เข้า POS > Owner > จัดการร้านค้า > เครื่องพิมพ์ Epson
+   - ใส่ IP จริงของ Epson
+   - บันทึก > ทดสอบพิมพ์
+   - ถ้า test ไม่ออกจาก Pi:
+       ping <EPSON-IP>
+       curl -I http://<EPSON-IP>/
+     และตรวจ Epson WebConfig/ePOS-Print
+
+5) ใบเสร็จ V81
+   - ออกแบบสำหรับ Epson 80mm
+   - โลโก้ขาวดำอยู่ด้านบน
+   - ชื่อร้าน/ข้อมูลร้านอยู่ใต้โลโก้
+   - เลขออเดอร์เด่น
+   - รายการสินค้าใช้แถว fixed-width 48 columns เพื่อให้ราคา/ยอดไม่กระโดดไปคนละบรรทัด
+   - รวมสุทธิอยู่ท้ายรายการแบบตัวใหญ่
+   - ตัดกระดาษหลังเว้น 3 บรรทัด
+
+6) LIVE จากนอกบ้าน
+   รัน:
+     ./start-public-dashboard.sh
+   จะได้ HTTPS URL จาก Cloudflare Quick Tunnel ใน Terminal
+   เติม /live ต่อท้าย host หากผลลัพธ์แสดงแค่ root เช่น:
+     https://xxxx.trycloudflare.com/live
+   ลิงก์นี้เป็น temporary URL และอาจเปลี่ยนเมื่อหยุด/เริ่ม tunnel ใหม่
+
+   ถ้าต้องการลิงก์ถาวร ควรสร้าง Cloudflare named tunnel/domain ของร้านในภายหลัง
+
+7) ปุ่ม REAL-TIME ในหน้า POS
+   V81 ใช้ route /live โดยตรง จึงไม่ต้องพึ่ง public URL เพื่อเปิด LIVE ภายในร้าน
+   ถ้าบันทึก Public Dashboard URL แล้ว ปุ่มจะใช้ URL นั้นสำหรับการเข้าจากภายนอก
+
+8) เช็ก log
+   sudo journalctl -u fish-pos.service -f
+   sudo systemctl restart fish-pos.service
+
+9) Backup
+   installer จะเก็บ backup ก่อนติดตั้งไว้ใน:
+   ~/tipkesorn-pos-backups/

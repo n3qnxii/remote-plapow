@@ -1,0 +1,16 @@
+{
+  "name": "tipkesorn-pos",
+  "version": "82.0.0",
+  "private": true,
+  "description": "Tipkesorn POS — Raspberry Pi, Epson printing, customer display and live dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:local": "node server.js",
+    "start:cloud": "node server-cloud.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "qrcode": "^1.5.4"
+  }
+}

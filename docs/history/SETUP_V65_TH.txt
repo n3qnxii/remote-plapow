@@ -1,0 +1,28 @@
+V65 — Audit Log + Cloud Backup + Remote Revenue Dashboard + Offline Sync + LINE Ready
+
+สิ่งที่เพิ่ม
+- Audit Log: login/switch user, successful sale, cancellation, stock adjustments, product changes, preorder changes
+- Offline Sync Queue: เน็ตล่ม POS ยังขายได้ และส่งงานค้างเมื่อเน็ตกลับ
+- Cloud Backup: backup snapshot อัตโนมัติทุก 15 นาที + ปุ่ม Backup ตอนนี้
+- Local/Remote summary: วันนี้ / 7 วัน / เดือน / ปี
+- Remote Dashboard เปิดจากประเทศอื่นผ่าน HTTPS cloud server
+- LINE Messaging API daily summary ready
+
+Cloud Environment Variables
+SHOP_KEY=รหัสลับสำหรับ POS
+DASH_TOKEN=รหัสสำหรับเปิด Remote Dashboard
+LINE_CHANNEL_ACCESS_TOKEN=Channel access token จาก LINE Messaging API (ถ้าจะใช้)
+LINE_TO=userId หรือ groupId ที่ Bot มีสิทธิ์ส่งข้อความ (ถ้าจะใช้)
+DAILY_SUMMARY_HOUR=21   # ชั่วโมงตามเวลาไทย
+
+Start cloud server
+npm install
+npm run start:cloud
+
+ใน POS เจ้าของ > รายงาน
+- ใส่ Cloud Server URL เป็น HTTPS URL ของ server
+- ใส่ SHOP_KEY ให้ตรงกับ server
+- กดบันทึก Cloud Sync
+
+หมายเหตุธนาคาร
+V65 ยังไม่เปิด auto-confirm เงินเข้า จนกว่าจะมี Merchant QR API/Webhook ที่ธนาคาร/Payment Provider อนุมัติและมี signature verification จริง

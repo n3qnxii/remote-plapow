@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Remote Dashboard • ทิพย์เกษรเมี่ยงปลาเผา</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#fffaf5 0,#f7f7f8 260px);color:#181818;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:24px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:14px}.brand-logo{width:72px;height:72px;object-fit:contain;background:#fff;border:1px solid #eee3d8;border-radius:18px;padding:5px;box-shadow:0 4px 16px rgba(78,51,28,.06)}.brand-copy h1{margin:0;font-size:27px;letter-spacing:-.3px}.brand-copy p{margin:5px 0 0;color:#777}
+.live{background:#e9f8ef;color:#247144;padding:9px 13px;border-radius:999px;font-weight:900}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{padding:10px 15px;border-radius:999px;border:1px solid #e5ded8;background:#fff;font-weight:800;cursor:pointer}
+.tabs button.active{background:#fff0e5;color:#d7600d;border-color:#ef8a46}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:#fff;border:1px solid #e6e6e8;border-radius:20px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.025)}
+.metric small{color:#777;display:block}.metric b{font-size:34px;display:block;margin-top:6px}
+.metric:first-child b{color:#e76613}
+.wide{grid-column:span 2}.section{margin-top:14px}.top-row{display:flex;justify-content:space-between;gap:12px}
+.products{display:grid;gap:9px;margin-top:10px;max-height:330px;overflow:auto;padding-right:5px}.product{display:flex;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #eee}.alltotal{padding:12px 14px;background:#fff1e5;border:1px solid #f1c397;border-radius:14px;display:flex;justify-content:space-between;font-weight:900}.catdrop{border:1px solid #ece8e4;border-radius:14px;background:#fff;overflow:hidden}.catdrop summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#faf9f8}.catdrop summary::-webkit-details-marker{display:none}.catdrop summary:after{content:'⌄';font-size:20px;color:#c66a2b}.catdrop[open] summary:after{content:'⌃'}.catdrop .cat-items{padding:0 4px 5px}.products-note{font-size:12px;color:#888;margin:1px 2px 4px}
+.last{font-size:20px;margin-top:8px}
+.loading{max-width:520px;margin:18vh auto;text-align:center;background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:28px}
+.loading b{font-size:22px}.loading p{color:#777}
+@media(max-width:800px){.wrap{padding:14px}.grid{grid-template-columns:repeat(2,1fr)}.wide{grid-column:span 2}.brand-logo{width:58px;height:58px}.brand-copy h1{font-size:22px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.wide{grid-column:span 1}.metric b{font-size:30px}}
+</style>
+</head>
+<body>
+<div id="loading" class="loading"><b>กำลังโหลดรายงาน…</b><p>เชื่อมต่อยอดขายแบบเรียลไทม์</p></div>
+<main id="app" class="wrap" hidden>
+  <div class="head">
+    <div class="brand"><img class="brand-logo" src="assets/thipkasorn-logo.png" alt="โลโก้ร้าน"><div class="brand-copy"><h1>ทิพย์เกษร เมี่ยงปลาเผา</h1><p id="periodText">ยอดขายวันนี้</p></div></div>
+    <span class="live">● LIVE</span>
+  </div>
+  <div class="tabs">
+    <button class="active" data-range="today">วันนี้</button>
+    <button data-range="week">7 วัน</button>
+    <button data-range="month">เดือน</button>
+    <button data-range="year">ปี</button>
+  </div>
+  <div class="grid">
+    <div class="card metric"><small>ยอดขายรวม</small><b id="revenue">฿0</b></div>
+    <div class="card metric"><small>ออเดอร์</small><b id="orders">0</b></div>
+    <div class="card metric"><small>QR</small><b id="qr">฿0</b></div>
+    <div class="card metric"><small>เงินสด</small><b id="cash">฿0</b></div>
+    <div class="card metric"><small>เฉลี่ย / บิล</small><b id="avg">฿0</b></div>
+    <div class="card metric"><small>ยกเลิก</small><b id="cancelled">0</b></div>
+    <div class="card wide"><div class="top-row"><b>ยอดขายสินค้าทั้งหมด</b><small id="rangeDates"></small></div><div id="products" class="products"></div></div>
+    <div class="card wide"><b>ออเดอร์ล่าสุด</b><div id="last" class="last">—</div></div>
+  </div>
+</main>
+<script>
+const $=x=>document.getElementById(x);
+const money=n=>'฿'+Number(n||0).toLocaleString('th-TH',{maximumFractionDigits:2});
+const STORAGE_KEY='fishPOS_figma_v3';
+let range='today';
+function key(d){const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`}
+function bounds(type){
+ const now=new Date(), end=key(now), s=new Date(now);
+ if(type==='week')s.setDate(s.getDate()-6);
+ if(type==='month')s.setDate(1);
+ if(type==='year'){s.setMonth(0);s.setDate(1)}
+ return {start:key(s),end};
+}
+async function readState(){
+ try{const r=await fetch('/api/live-state',{cache:'no-store'});if(r.ok)return await r.json()}catch(e){}
+ try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return {}}
+}
+async function summary(){
+ const st=await readState(), b=bounds(range), all=Array.isArray(st.orders)?st.orders:[];
+ const rows=all.filter(o=>{const d=o.orderDate||key(o.time||Date.now());return d>=b.start&&d<=b.end});
+ const paid=rows.filter(o=>o.status!=='cancelled');
+ const revenue=paid.reduce((n,o)=>n+Number(o.total||0),0),cash=paid.filter(o=>o.payment==='เงินสด').reduce((n,o)=>n+Number(o.total||0),0),qr=paid.filter(o=>o.payment==='QR').reduce((n,o)=>n+Number(o.total||0),0);
+ const catalog=new Map((st.products||[]).map(p=>[`${p.name}@@${Number(p.price||0)}`,p])); const cats=new Map();let totalQty=0;
+ paid.forEach(o=>(o.items||[]).forEach(i=>{const qty=Number(i.qty||0),price=Number(i.price||0),p=catalog.get(`${i.name}@@${price}`)||(st.products||[]).find(x=>x.name===i.name),cat=p?.category||'อื่น ๆ';if(!cats.has(cat))cats.set(cat,new Map());const m=cats.get(cat),k=`${i.name}@@${price}`,x=m.get(k)||{name:i.name,price,qty:0};x.qty+=qty;m.set(k,x);totalQty+=qty}));
+ const productGroups=[...cats.entries()].map(([category,m])=>({category,items:[...m.values()].sort((a,b)=>b.qty-a.qty),qty:[...m.values()].reduce((n,x)=>n+x.qty,0)})).sort((a,b)=>b.qty-a.qty);
+ return {revenue,cash,qr,orders:paid.length,cancelled:rows.length-paid.length,average:paid.length?revenue/paid.length:0,start:b.start,end:b.end,productGroups,totalQty,lastOrder:paid[0]||null,updatedAt:st.updatedAt};
+}
+function paint(s){
+ $('revenue').textContent=money(s.revenue); $('orders').textContent=s.orders||0; $('qr').textContent=money(s.qr); $('cash').textContent=money(s.cash); $('avg').textContent=money(s.average); $('cancelled').textContent=s.cancelled||0;
+ $('rangeDates').textContent=`${s.start} ถึง ${s.end}`;
+ const productsHost=$('products');
+ const openCategories=new Set([...productsHost.querySelectorAll('details.catdrop[open]')].map(d=>d.dataset.category));
+ const productsScrollTop=productsHost.scrollTop;
+ productsHost.innerHTML=s.totalQty?`<div class="alltotal"><span>รวมสินค้าขายทั้งหมด</span><b>${s.totalQty.toLocaleString('th-TH')} ชิ้น</b></div><div class="products-note">กดหมวดหมู่เพื่อดูรายละเอียดสินค้า • หมวดที่เปิดจะค้างไว้จนกว่าจะกดปิดเอง</div>`+(s.productGroups||[]).map(g=>`<details class="catdrop" data-category="${String(g.category).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}" ${openCategories.has(String(g.category))?'open':''}><summary><span>${g.category}</span><b>${g.qty.toLocaleString('th-TH')} ชิ้น</b></summary><div class="cat-items">${g.items.map((p,i)=>`<div class="product"><span>${i+1}. ${p.name} <small>${money(p.price)}</small></span><b>${p.qty.toLocaleString('th-TH')} ชิ้น</b></div>`).join('')}</div></details>`).join(''):'ยังไม่มีข้อมูล';
+ productsHost.scrollTop=productsScrollTop;
+ const o=s.lastOrder; $('last').textContent=o?`#${String(o.number).padStart(3,'0')} • ${money(o.total)} • ${o.payment}`:'ยังไม่มีออเดอร์';
+ $('loading').hidden=true; $('app').hidden=false;
+ $('periodText').textContent={today:'ยอดขายวันนี้',week:'ยอดรวม 7 วันล่าสุด',month:'ยอดรวมเดือนนี้',year:'ยอดรวมปีนี้'}[range];
+}
+async function load(){paint(await summary())}
+document.querySelectorAll('[data-range]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-range]').forEach(x=>x.classList.remove('active'));btn.classList.add('active');range=btn.dataset.range;load()});
+window.addEventListener('storage',e=>{if(e.key===STORAGE_KEY)load()});
+load(); setInterval(load,2000);
+</script>
+</body>
+</html>

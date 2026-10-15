@@ -1,0 +1,6 @@
+V81 CHANGES
+- แก้ปุ่ม REAL-TIME ให้มี route /live ที่ Raspberry Pi เสมอ จึงกดจากหน้า Report แล้วเปิดได้แม้ยังไม่มี Public URL
+- เพิ่ม /dashboard-live และ /realtime เป็น alias ของ LIVE Dashboard
+- ปรับใบเสร็จ Epson 80mm ใหม่: fixed-width 48 columns, ชื่อสินค้า/จำนวน/ราคาต่อหน่วย/ยอดรวมจัดแนว, header โลโก้+ชื่อร้าน, order/payment/date, total เด่น, note และ cut
+- เพิ่ม installer Raspberry Pi V81 พร้อม systemd + Customer Display kiosk + backup ก่อนติดตั้ง
+- เพิ่ม start-public-dashboard.sh สำหรับ Cloudflare Quick Tunnel HTTPS

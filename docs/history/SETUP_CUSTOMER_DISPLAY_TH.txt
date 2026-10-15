@@ -1,0 +1,61 @@
+FISH POS — CUSTOMER DISPLAY V1
+ร้านทิพย์เกษรเมี่ยงปลาเผา
+
+ไฟล์ชุดนี้เพิ่ม Customer Display โดยไม่ใช้ Firebase
+
+การทำงานเมื่อใช้ Raspberry Pi จริง
+1) Raspberry Pi ต่อ Wi-Fi ร้านเดียวกับ iPad
+2) Pi ต่อจอ 5 นิ้วผ่าน HDMI
+3) Pi รัน Local Server + WebSocket
+4) iPad เปิด POS จาก http://fish-pos.local:8080
+5) Pi เปิด Customer Display จาก http://localhost:8080/customer.html
+6) รายการ / ยอด / QR / เงินสด / เงินทอน / ชำระสำเร็จ จะซิงก์ผ่าน Wi-Fi ภายในร้าน
+
+สำคัญ: ตอนใช้งานจริงแบบไม่ใช้ Firebase ให้เปิด POS บน iPad จาก Raspberry Pi Local Server
+ไม่ใช่ GitHub Pages เพราะ GitHub Pages เป็น HTTPS และไม่สามารถคุยกับ ws:// ภายในร้านได้อย่างเหมาะสม
+GitHub ยังใช้เก็บ/สำรอง/อัปเดต Source Code ได้เหมือนเดิม
+
+ทดสอบก่อนซื้อ Raspberry Pi
+- เปิด index.html และ customer.html บน Browser เดียวกัน/Origin เดียวกันผ่าน local web server
+- ระบบมี BroadcastChannel สำหรับพรีวิว Customer Display บนเครื่องเดียวกัน
+
+บน Raspberry Pi หลังติดตั้ง Node.js แล้ว
+cd ไปยังโฟลเดอร์นี้
+npm install
+npm start
+
+หน้า POS:
+http://fish-pos.local:8080
+
+หน้าจอลูกค้า:
+http://fish-pos.local:8080/customer.html
+หรือบน Raspberry Pi เอง:
+http://localhost:8080/customer.html
+
+พอร์ตที่ใช้
+HTTP: 8080
+WebSocket: 8787
+
+Customer Display รองรับ
+- หน้ารอต้อนรับ
+- เลขออเดอร์
+- รายการสินค้า + จำนวน + ราคาต่อรายการ
+- ยอดรวมและส่วนลด
+- เงินสด: ยอด / ลูกค้าจ่าย / ขาดอีก / เงินทอน / จ่ายพอดี
+- QR: Dynamic PromptPay QR ตามยอดจาก POS
+- หน้าชำระเงินสำเร็จ
+- กลับหน้ารอออเดอร์ใหม่ตาม POS
+- Auto reconnect หาก Wi-Fi หลุดชั่วคราว
+- Layout responsive สำหรับจอ 5 นิ้ว 800x480 และจอใหญ่กว่า
+
+
+V55 — ตั้งค่าจอ Customer Display ไม่ให้ดับ (Raspberry Pi)
+1. ตัวหน้า customer.html ขอ Screen Wake Lock อัตโนมัติเมื่อ Browser รองรับ
+2. ตอนตั้ง Raspberry Pi kiosk ให้ปิด screen blanking ของ Raspberry Pi OS ด้วย เพื่อให้จอร้านเปิดตลอดเวลาที่เครื่องทำงาน
+3. เปิด Chromium แบบ kiosk ที่ http://localhost:8080/customer.html
+4. ถ้า Browser ต้องการ user interaction สำหรับ Wake Lock ให้แตะ/คลิกหน้าจอ 1 ครั้งหลังเปิดครั้งแรก ระบบจะขอ Wake Lock ใหม่อัตโนมัติ
+
+การอัปเดตแบบทันที
+- เมื่อพนักงานเพิ่ม/ลด/ลบสินค้า renderCart() จะส่งสถานะใหม่ไป Customer Display ทันที
+- WebSocket server เก็บสถานะล่าสุดไว้ เมื่อจอลูกค้าหลุดแล้วเชื่อมใหม่จะได้รับสถานะล่าสุดทันที
+- QR payment ปรับให้ QR ใหญ่เกือบเต็มพื้นที่จอ เพื่อสแกนง่ายบนจอ 5 นิ้ว

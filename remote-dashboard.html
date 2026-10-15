@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Remote Dashboard V80 • ทิพย์เกษรเมี่ยงปลาเผา</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#fffaf5 0,#f7f7f8 260px);color:#181818;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:24px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:14px}.brand-logo{width:72px;height:72px;object-fit:contain;background:#fff;border:1px solid #eee3d8;border-radius:18px;padding:5px;box-shadow:0 4px 16px rgba(78,51,28,.06)}.brand-copy h1{margin:0;font-size:27px;letter-spacing:-.3px}.brand-copy p{margin:5px 0 0;color:#777}
+.live{background:#e9f8ef;color:#247144;padding:9px 13px;border-radius:999px;font-weight:900}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{padding:10px 15px;border-radius:999px;border:1px solid #e5ded8;background:#fff;font-weight:800;cursor:pointer}
+.tabs button.active{background:#fff0e5;color:#d7600d;border-color:#ef8a46}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:#fff;border:1px solid #e6e6e8;border-radius:20px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.025)}
+.metric small{color:#777;display:block}.metric b{font-size:34px;display:block;margin-top:6px}
+.metric:first-child b{color:#e76613}
+.wide{grid-column:span 2}.section{margin-top:14px}.top-row{display:flex;justify-content:space-between;gap:12px}
+.products{display:grid;gap:9px;margin-top:10px;max-height:330px;overflow:auto;padding-right:5px}.product{display:flex;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #eee}.alltotal{padding:12px 14px;background:#fff1e5;border:1px solid #f1c397;border-radius:14px;display:flex;justify-content:space-between;font-weight:900}.catdrop{border:1px solid #ece8e4;border-radius:14px;background:#fff;overflow:hidden}.catdrop summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#faf9f8}.catdrop summary::-webkit-details-marker{display:none}.catdrop summary:after{content:'⌄';font-size:20px;color:#c66a2b}.catdrop[open] summary:after{content:'⌃'}.catdrop .cat-items{padding:0 4px 5px}.products-note{font-size:12px;color:#888;margin:1px 2px 4px}
+.last{font-size:20px;margin-top:8px}
+.loading{max-width:520px;margin:18vh auto;text-align:center;background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:28px}
+.loading b{font-size:22px}.loading p{color:#777}
+@media(max-width:800px){.wrap{padding:14px}.grid{grid-template-columns:repeat(2,1fr)}.wide{grid-column:span 2}.brand-logo{width:58px;height:58px}.brand-copy h1{font-size:22px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.wide{grid-column:span 1}.metric b{font-size:30px}}
+
+/* V79 LIVE report extensions */
+.report-head-v79{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:20px 0 12px}.report-head-v79 h2{margin:0;font-size:21px}.report-head-v79 p{margin:4px 0 0;color:#81766d;font-size:13px}.date-picker-v79{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #eadfd6;border-radius:15px;padding:8px 10px}.date-picker-v79 label{font-size:12px;color:#8b7768;font-weight:800}.date-picker-v79 select{border:0;background:transparent;font:inherit;font-weight:800;outline:none;color:#29231f;max-width:230px}.section-title-v79{display:flex;align-items:center;gap:9px;margin:0 0 12px;font-size:17px}.icon-v79{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#fff0e5;color:#dc6817;font-size:17px}.history-summary-v79{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.history-summary-v79>div{background:#faf9f8;border:1px solid #eee9e4;border-radius:14px;padding:13px}.history-summary-v79 span{display:block;color:#82776f;font-size:12px}.history-summary-v79 b{display:block;margin-top:5px;font-size:20px}.charts-v79{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px}.chart-card-v79{min-width:0}.chart-card-v79 canvas{display:block;width:100%;height:230px}.chart-sub-v79{color:#887d74;font-size:12px;margin:-5px 0 10px}.trend-grid-v79{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.payment-v79{display:grid;gap:10px}.payrow-v79{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;border:1px solid #eee8e2;border-radius:14px;background:#fbfaf9}.payrow-v79 span{font-weight:750}.payrow-v79 b{font-size:16px}.orders-history-v79{margin-top:12px}.orders-table-v79{max-height:320px;overflow:auto;border:1px solid #eee9e4;border-radius:14px}.order-row-v79{display:grid;grid-template-columns:90px 1fr 120px 100px;gap:10px;align-items:center;padding:11px 13px;border-bottom:1px solid #f0ece8;font-size:13px}.order-row-v79:last-child{border-bottom:0}.order-row-v79 strong{font-size:14px}.order-row-v79 .amount{font-weight:900;text-align:right}.order-row-v79 .method{text-align:right;color:#776b62}.empty-v79{padding:22px;text-align:center;color:#8d837b}.selected-badge-v79{display:inline-flex;align-items:center;gap:6px;background:#f3f8f4;color:#39714b;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:850}.selected-badge-v79:before{content:'●';color:#44a266}.card-v79{margin-top:12px}.products-v79{max-height:360px}
+@media(max-width:800px){.report-head-v79{align-items:stretch;flex-direction:column}.date-picker-v79{justify-content:space-between}.history-summary-v79{grid-template-columns:repeat(2,1fr)}.charts-v79,.trend-grid-v79{grid-template-columns:1fr}.order-row-v79{grid-template-columns:70px 1fr 90px}.order-row-v79 .method{display:none}}
+@media(max-width:480px){.history-summary-v79{grid-template-columns:1fr 1fr}.order-row-v79{grid-template-columns:65px 1fr 80px}.chart-card-v79 canvas{height:210px}}
+
+
+/* V80 dashboard balance + hourly insights */
+.top-metrics-v80{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.top-metrics-v80 .metric{min-height:112px;display:flex;flex-direction:column;justify-content:center}
+.compact-metrics-v80{display:grid;grid-template-columns:minmax(150px,.72fr) minmax(120px,.55fr) minmax(260px,1.45fr);gap:12px;margin-top:12px;align-items:stretch}
+.compact-metrics-v80 .card{margin:0;min-width:0}
+.compact-metric-v80{display:flex;align-items:center;gap:12px;padding:15px 16px}
+.compact-metric-v80 .metric-icon-v80,.latest-icon-v80{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:13px;background:#fff0e5;color:#df6714;font-size:20px;border:1px solid #f3d6c0}
+.compact-metric-v80 small{display:block;color:#7d746d;font-size:12px;font-weight:750}.compact-metric-v80 b{display:block;font-size:24px;margin-top:2px;line-height:1.15}
+.latest-card-v80{position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;padding:15px 17px;border-color:#efc6a8;background:linear-gradient(135deg,#fffaf6,#fff3e9)}
+.latest-card-v80:after{content:'';position:absolute;width:110px;height:110px;border-radius:50%;right:-45px;top:-55px;background:rgba(231,102,19,.07)}
+.latest-copy-v80{min-width:0;position:relative;z-index:1}.latest-copy-v80 small{display:block;color:#856f60;font-weight:800}.latest-copy-v80 .last{font-size:21px;font-weight:900;color:#2d241e;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.report-content-grid-v80{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.75fr);gap:12px;margin-top:12px}.report-content-grid-v80>.card{margin:0}
+.hour-insight-v80{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:stretch;margin-top:12px}
+.hour-insight-v80>div{border:1px solid #eee5dd;border-radius:14px;padding:12px 13px;background:#fbfaf9}.hour-insight-v80 small{display:block;color:#887b71;font-size:11px;font-weight:800}.hour-insight-v80 b{display:block;font-size:18px;margin-top:3px}.hour-insight-v80 strong{display:block;color:#df6714;font-size:12px;margin-top:2px}.hour-insight-v80>span{align-self:center;color:#8b8179;font-size:11px;padding:0 6px}
+.hour-insight-v80 .busy-v80{background:#fff4eb;border-color:#f3d3bc}.hour-insight-v80 .quiet-v80{background:#f7f8f8;border-color:#e5e7e7}
+@media(max-width:800px){.top-metrics-v80{grid-template-columns:repeat(2,1fr)}.compact-metrics-v80{grid-template-columns:1fr 1fr}.latest-card-v80{grid-column:span 2}.report-content-grid-v80{grid-template-columns:1fr}.hour-insight-v80{grid-template-columns:1fr 1fr}.hour-insight-v80>span{grid-column:span 2;text-align:center}}
+@media(max-width:480px){.top-metrics-v80{grid-template-columns:1fr 1fr}.compact-metrics-v80{grid-template-columns:1fr 1fr}.latest-card-v80{grid-column:span 2}.compact-metric-v80{padding:12px}.compact-metric-v80 b{font-size:21px}.latest-copy-v80 .last{font-size:18px}.hour-insight-v80{grid-template-columns:1fr 1fr}}
+
+</style>
+</head>
+<body>
+<div id="loading" class="loading"><b>กำลังโหลดรายงาน…</b><p>เชื่อมต่อยอดขายแบบเรียลไทม์</p></div>
+<main id="app" class="wrap" hidden>
+  <div class="head">
+    <div class="brand"><img class="brand-logo" src="assets/thipkasorn-logo.png" alt="โลโก้ร้าน"><div class="brand-copy"><h1>ทิพย์เกษร เมี่ยงปลาเผา</h1><p id="periodText">ยอดขายวันนี้</p></div></div>
+    <span class="live">● LIVE</span>
+  </div>
+  <div class="tabs">
+    <button class="active" data-range="today">วันนี้</button>
+    <button data-range="week">7 วัน</button>
+    <button data-range="month">เดือน</button>
+    <button data-range="year">ปี</button>
+  </div>
+  <div class="top-metrics-v80">
+    <div class="card metric"><small>💰 ยอดขายรวม</small><b id="revenue">฿0</b></div>
+    <div class="card metric"><small>🧾 ออเดอร์</small><b id="orders">0</b></div>
+    <div class="card metric"><small>▦ QR</small><b id="qr">฿0</b></div>
+    <div class="card metric"><small>💵 เงินสด</small><b id="cash">฿0</b></div>
+  </div>
+  <div class="compact-metrics-v80">
+    <div class="card compact-metric-v80"><span class="metric-icon-v80">÷</span><div><small>เฉลี่ย / บิล</small><b id="avg">฿0</b></div></div>
+    <div class="card compact-metric-v80"><span class="metric-icon-v80">×</span><div><small>ยกเลิก</small><b id="cancelled">0</b></div></div>
+    <div class="card latest-card-v80"><span class="latest-icon-v80">↗</span><div class="latest-copy-v80"><small>ออเดอร์ล่าสุด</small><div id="last" class="last">—</div></div></div>
+  </div>
+  <div class="report-content-grid-v80">
+    <div class="card"><div class="top-row"><b>📦 ยอดขายสินค้าทั้งหมด</b><small id="rangeDates"></small></div><div id="products" class="products products-v79"></div></div>
+    <div class="card"><h3 class="section-title-v79"><span class="icon-v79">฿</span><span>ช่องทางชำระของวันที่เลือก</span></h3><div id="paymentV79" class="payment-v79"></div></div>
+  </div>
+
+  <div class="report-head-v79">
+    <div><h2>📊 รายงานแบบเรียลไทม์</h2><p>เลือกวันที่ย้อนหลังเพื่อดูยอด ออเดอร์ และกราฟในรูปแบบเดียวกับหน้ารายงานของ POS</p></div>
+    <div class="date-picker-v79"><label for="historyDateV79">📅 วันที่</label><select id="historyDateV79" aria-label="เลือกวันที่ย้อนหลัง"></select></div>
+  </div>
+
+  <section class="card card-v79">
+    <h3 class="section-title-v79"><span class="icon-v79">↶</span><span>เช็กยอดออเดอร์ย้อนหลัง</span><span id="selectedDateBadgeV79" class="selected-badge-v79">วันที่เลือก</span></h3>
+    <div id="historySummaryV79" class="history-summary-v79"></div>
+  </section>
+
+  <div class="charts-v79" style="grid-template-columns:1fr">
+    <section class="card chart-card-v79">
+      <h3 class="section-title-v79"><span class="icon-v79">⌁</span><span id="hourlyTitleV79">จำนวนออเดอร์ตามชั่วโมง</span></h3>
+      <p class="chart-sub-v79">ช่วงเวลา 06:00–22:00 ของวันที่เลือก • แตะหรือชี้จุดกราฟเพื่อดูจำนวนออเดอร์</p>
+      <canvas id="hourlyChartV79"></canvas>
+      <div id="hourInsightV80" class="hour-insight-v80"></div>
+    </section>
+  </div>
+
+  <div class="trend-grid-v79">
+    <section class="card chart-card-v79"><h3 class="section-title-v79"><span class="icon-v79">7</span><span>จำนวนออเดอร์ 7 วัน</span></h3><canvas id="weekChartV79"></canvas></section>
+    <section class="card chart-card-v79"><h3 class="section-title-v79"><span class="icon-v79">30</span><span>จำนวนออเดอร์ 30 วัน</span></h3><canvas id="monthChartV79"></canvas></section>
+  </div>
+
+  <section class="card orders-history-v79">
+    <h3 class="section-title-v79"><span class="icon-v79">☷</span><span>ออเดอร์ของวันที่เลือก</span></h3>
+    <div id="ordersHistoryV79" class="orders-table-v79"></div>
+  </section>
+</main>
+<script>
+const $=x=>document.getElementById(x);
+const money=n=>'฿'+Number(n||0).toLocaleString('th-TH',{maximumFractionDigits:2});
+const STORAGE_KEY='fishPOS_figma_v3';
+let range='today';
+let selectedHistoryDateV79='';
+let lastStateV79={};
+function key(d){const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`}
+function bounds(type){
+ const now=new Date(), end=key(now), s=new Date(now);
+ if(type==='week')s.setDate(s.getDate()-6);
+ if(type==='month')s.setDate(1);
+ if(type==='year'){s.setMonth(0);s.setDate(1)}
+ return {start:key(s),end};
+}
+async function readState(){
+ try{const r=await fetch('/api/live-state',{cache:'no-store'});if(r.ok)return await r.json()}catch(e){}
+ try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return {}}
+}
+async function summary(){
+ const st=await readState(), b=bounds(range), all=Array.isArray(st.orders)?st.orders:[];
+ const rows=all.filter(o=>{const d=o.orderDate||key(o.time||Date.now());return d>=b.start&&d<=b.end});
+ const paid=rows.filter(o=>o.status!=='cancelled');
+ const revenue=paid.reduce((n,o)=>n+Number(o.total||0),0),cash=paid.filter(o=>o.payment==='เงินสด').reduce((n,o)=>n+Number(o.total||0),0),qr=paid.filter(o=>o.payment==='QR').reduce((n,o)=>n+Number(o.total||0),0);
+ const catalog=new Map((st.products||[]).map(p=>[`${p.name}@@${Number(p.price||0)}`,p])); const cats=new Map();let totalQty=0;
+ paid.forEach(o=>(o.items||[]).forEach(i=>{const qty=Number(i.qty||0),price=Number(i.price||0),p=catalog.get(`${i.name}@@${price}`)||(st.products||[]).find(x=>x.name===i.name),cat=p?.category||'อื่น ๆ';if(!cats.has(cat))cats.set(cat,new Map());const m=cats.get(cat),k=`${i.name}@@${price}`,x=m.get(k)||{name:i.name,price,qty:0};x.qty+=qty;m.set(k,x);totalQty+=qty}));
+ const productGroups=[...cats.entries()].map(([category,m])=>({category,items:[...m.values()].sort((a,b)=>b.qty-a.qty),qty:[...m.values()].reduce((n,x)=>n+x.qty,0)})).sort((a,b)=>b.qty-a.qty);
+ return {revenue,cash,qr,orders:paid.length,cancelled:rows.length-paid.length,average:paid.length?revenue/paid.length:0,start:b.start,end:b.end,productGroups,totalQty,lastOrder:paid[0]||null,updatedAt:st.updatedAt,__state:st};
+}
+
+function escV79(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function allDateKeysV79(st){
+ const keys=new Set([key(new Date())]);
+ (st.orders||[]).forEach(o=>keys.add(o.orderDate||key(o.time||Date.now())));
+ return [...keys].sort().reverse();
+}
+function ensureHistoryDateV79(st){
+ const sel=$('historyDateV79'); if(!sel)return;
+ const keys=allDateKeysV79(st), old=selectedHistoryDateV79||sel.value;
+ sel.innerHTML=keys.map(k=>`<option value="${k}">${new Date(k+'T12:00:00').toLocaleDateString('th-TH',{day:'2-digit',month:'long',year:'numeric'})}</option>`).join('');
+ selectedHistoryDateV79=keys.includes(old)?old:keys[0]; sel.value=selectedHistoryDateV79;
+}
+function selectedRowsV79(st){const k=selectedHistoryDateV79||key(new Date());return (st.orders||[]).filter(o=>(o.orderDate||key(o.time||Date.now()))===k)}
+function dailySeriesV79(st,days,endKey){
+ const end=new Date((endKey||key(new Date()))+'T12:00:00'),labels=[],values=[];
+ for(let off=days-1;off>=0;off--){const d=new Date(end);d.setDate(end.getDate()-off);const dk=key(d);const n=(st.orders||[]).filter(o=>o.status!=='cancelled'&&(o.orderDate||key(o.time||Date.now()))===dk).length;labels.push(d.toLocaleDateString('th-TH',{day:'2-digit',month:'2-digit'}));values.push(n)}
+ return {labels,values};
+}
+function hourlySeriesV79(rows){const labels=[],values=[];for(let h=6;h<=22;h++){labels.push(String(h).padStart(2,'0')+':00');values.push(rows.filter(o=>o.status!=='cancelled'&&new Date(o.time).getHours()===h).length)}return{labels,values}}
+function renderHourInsightV80(series){const box=$('hourInsightV80');if(!box||!series?.values?.length)return;const vals=series.values.map(Number),max=Math.max(...vals),positive=vals.filter(v=>v>0),min=positive.length?Math.min(...positive):0,peak=vals.indexOf(max),quiet=min>0?vals.indexOf(min):vals.findIndex(v=>v===0);box.innerHTML=`<div class="busy-v80"><small>🔥 ช่วงขายดีที่สุด</small><b>${series.labels[peak]||'-'}</b><strong>${max} ออเดอร์</strong></div><div class="quiet-v80"><small>🌙 ช่วงเงียบ</small><b>${quiet>=0?series.labels[quiet]:'-'}</b><strong>${quiet>=0?vals[quiet]:0} ออเดอร์</strong></div><span>ดูจังหวะลูกค้าเข้าเพื่อช่วยวางแผนเตรียมอาหารและพนักงาน</span>`;}
+function drawChartV79(id,labels,values){
+ const c=$(id);if(!c)return;const box=c.parentElement,w=Math.max(300,box.clientWidth-36),h=230,dpr=window.devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);const p={l:38,r:12,t:18,b:35},W=w-p.l-p.r,H=h-p.t-p.b,max=Math.max(4,...values),top=Math.ceil(max/4)*4;x.font='10px system-ui';x.strokeStyle='#eee5dd';x.fillStyle='#8a7b70';x.lineWidth=1;for(let i=0;i<=4;i++){const y=p.t+H-H*i/4,v=Math.round(top*i/4);x.beginPath();x.moveTo(p.l,y);x.lineTo(w-p.r,y);x.stroke();x.textAlign='right';x.fillText(v,p.l-7,y+3)}const step=values.length>1?W/(values.length-1):W,pts=values.map((v,i)=>({x:p.l+i*step,y:p.t+H-H*(v/top)}));if(pts.length){x.strokeStyle='#e76613';x.lineWidth=2.5;x.beginPath();pts.forEach((q,i)=>i?x.lineTo(q.x,q.y):x.moveTo(q.x,q.y));x.stroke();pts.forEach((q,i)=>{x.fillStyle='#fff';x.strokeStyle='#e76613';x.beginPath();x.arc(q.x,q.y,3.5,0,Math.PI*2);x.fill();x.stroke();const every=labels.length>20?5:labels.length>12?2:1;if(i%every===0||i===labels.length-1){x.fillStyle='#8a7b70';x.textAlign='center';x.fillText(labels[i],q.x,p.t+H+18)}})}
+}
+function renderHistoryV79(st){
+ ensureHistoryDateV79(st);const rows=selectedRowsV79(st),paid=rows.filter(o=>o.status!=='cancelled'),cancelled=rows.filter(o=>o.status==='cancelled'),sales=paid.reduce((n,o)=>n+Number(o.total||0),0),cashRows=paid.filter(o=>o.payment==='เงินสด'),qrRows=paid.filter(o=>o.payment==='QR'),cash=cashRows.reduce((n,o)=>n+Number(o.total||0),0),qr=qrRows.reduce((n,o)=>n+Number(o.total||0),0),latest=rows.length?Math.max(...rows.map(o=>Number(o.number)||0)):0;
+ $('selectedDateBadgeV79').textContent=new Date(selectedHistoryDateV79+'T12:00:00').toLocaleDateString('th-TH',{day:'2-digit',month:'short',year:'numeric'});
+ $('historySummaryV79').innerHTML=`<div><span>ออเดอร์สำเร็จ</span><b>${paid.length} ออเดอร์</b></div><div><span>ยอดขาย</span><b>${money(sales)}</b></div><div><span>ยกเลิก</span><b>${cancelled.length} ออเดอร์</b></div><div><span>เลขออเดอร์ล่าสุด</span><b>${latest?'#'+String(latest).padStart(3,'0'):'-'}</b></div>`;
+ $('paymentV79').innerHTML=`<div class="payrow-v79"><span>💵 เงินสด</span><b>${money(cash)} · ${cashRows.length} ครั้ง</b></div><div class="payrow-v79"><span>▦ QR</span><b>${money(qr)} · ${qrRows.length} ครั้ง</b></div>`;
+ const hs=hourlySeriesV79(rows),ws=dailySeriesV79(st,7,selectedHistoryDateV79),ms=dailySeriesV79(st,30,selectedHistoryDateV79);drawChartV79('hourlyChartV79',hs.labels,hs.values);drawChartV79('weekChartV79',ws.labels,ws.values);drawChartV79('monthChartV79',ms.labels,ms.values);renderHourInsightV80(hs);
+ $('ordersHistoryV79').innerHTML=rows.length?rows.slice().sort((a,b)=>new Date(b.time)-new Date(a.time)).map(o=>`<div class="order-row-v79"><strong>#${String(o.number||0).padStart(3,'0')}</strong><span>${new Date(o.time).toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})} · ${o.status==='cancelled'?'ยกเลิก':'สำเร็จ'}</span><span class="amount">${money(o.total)}</span><span class="method">${escV79(o.payment||'-')}</span></div>`).join(''):'<div class="empty-v79">ยังไม่มีออเดอร์ในวันที่เลือก</div>';
+}
+
+function paint(s){
+ lastStateV79=s.__state||lastStateV79;
+ $('revenue').textContent=money(s.revenue); $('orders').textContent=s.orders||0; $('qr').textContent=money(s.qr); $('cash').textContent=money(s.cash); $('avg').textContent=money(s.average); $('cancelled').textContent=s.cancelled||0;
+ $('rangeDates').textContent=`${s.start} ถึง ${s.end}`;
+ const productsHost=$('products');
+ const openCategories=new Set([...productsHost.querySelectorAll('details.catdrop[open]')].map(d=>d.dataset.category));
+ const productsScrollTop=productsHost.scrollTop;
+ productsHost.innerHTML=s.totalQty?`<div class="alltotal"><span>รวมสินค้าขายทั้งหมด</span><b>${s.totalQty.toLocaleString('th-TH')} ชิ้น</b></div><div class="products-note">กดหมวดหมู่เพื่อดูรายละเอียดสินค้า • หมวดที่เปิดจะค้างไว้จนกว่าจะกดปิดเอง</div>`+(s.productGroups||[]).map(g=>`<details class="catdrop" data-category="${String(g.category).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}" ${openCategories.has(String(g.category))?'open':''}><summary><span>${g.category}</span><b>${g.qty.toLocaleString('th-TH')} ชิ้น</b></summary><div class="cat-items">${g.items.map((p,i)=>`<div class="product"><span>${i+1}. ${p.name} <small>${money(p.price)}</small></span><b>${p.qty.toLocaleString('th-TH')} ชิ้น</b></div>`).join('')}</div></details>`).join(''):'ยังไม่มีข้อมูล';
+ productsHost.scrollTop=productsScrollTop;
+ const o=s.lastOrder; $('last').textContent=o?`#${String(o.number).padStart(3,'0')} • ${money(o.total)} • ${o.payment}`:'ยังไม่มีออเดอร์';
+ $('loading').hidden=true; $('app').hidden=false;
+ $('periodText').textContent={today:'ยอดขายวันนี้',week:'ยอดรวม 7 วันล่าสุด',month:'ยอดรวมเดือนนี้',year:'ยอดรวมปีนี้'}[range];
+ renderHistoryV79(s.__state||lastStateV79);
+}
+async function load(){paint(await summary())}
+document.querySelectorAll('[data-range]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-range]').forEach(x=>x.classList.remove('active'));btn.classList.add('active');range=btn.dataset.range;load()});
+$('historyDateV79').addEventListener('change',e=>{selectedHistoryDateV79=e.target.value;renderHistoryV79(lastStateV79)});
+window.addEventListener('resize',()=>{if(lastStateV79&&Object.keys(lastStateV79).length)renderHistoryV79(lastStateV79)});
+window.addEventListener('storage',e=>{if(e.key===STORAGE_KEY)load()});
+load(); setInterval(load,2000);
+</script>
+</body>
+</html>

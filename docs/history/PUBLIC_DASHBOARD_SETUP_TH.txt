@@ -1,0 +1,22 @@
+Tipkesorn POS V75 — Dashboard LIVE จากนอก Wi-Fi
+
+สำคัญ: ZIP นี้เตรียมระบบและช่องเก็บลิงก์ไว้แล้ว แต่ลิงก์ HTTPS จริงต้องถูกสร้างบน Raspberry Pi ที่ร้าน เพราะ Raspberry Pi เป็นเครื่องที่มีข้อมูลยอดขายจริง
+
+วิธีทดสอบแบบไม่ต้องมีโดเมน (Cloudflare Quick Tunnel)
+1) ให้ POS/Raspberry Pi ทำงานที่ http://localhost:8080 ตามปกติ
+2) ติดตั้ง cloudflared บน Raspberry Pi ตามเอกสารทางการ Cloudflare สำหรับ Debian/Raspberry Pi
+3) ในโฟลเดอร์ POS รัน: ./start-public-dashboard.sh
+4) Terminal จะแสดงลิงก์ประมาณ https://xxxxx.trycloudflare.com
+5) ลิงก์ที่แชร์คือ https://xxxxx.trycloudflare.com/remote-dashboard.html
+6) เข้า Admin > Dashboard LIVE สำหรับดูจากที่อื่น > วางลิงก์ > บันทึกลิงก์
+
+หมายเหตุ
+- Quick Tunnel เหมาะสำหรับทดลอง และ URL อาจเปลี่ยนเมื่อเริ่มใหม่
+- ใช้งานร้านจริงควรใช้ Cloudflare Named Tunnel + Access/Login เพื่อให้ URL คงที่และไม่เปิดข้อมูลรายได้สู่สาธารณะ
+- ห้ามเปิด port 8080 ของ Raspberry Pi ตรงสู่ Internet
+- เครื่องที่อยู่นอก Wi-Fi ร้านให้ใช้ HTTPS public URL เท่านั้น
+
+IP เครื่องปริ้น
+- V75 เอาตัวอย่าง 192.168.1.60 ออกจากช่องกรอกแล้ว
+- ให้กรอก IP จริงจาก Network Status ของ Epson
+- ระบบไม่สามารถเดา IP จริงของเครื่องปริ้นจาก ZIP ได้

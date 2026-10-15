@@ -1,0 +1,24 @@
+V64 — Remote Dashboard + Bank API Ready
+
+สิ่งที่เพิ่ม
+1) POS ยังทำงาน Local บน Raspberry Pi เหมือนเดิม
+2) สามารถกำหนด Cloud Server URL + Shop Key ในหน้ารายงาน (owner)
+3) เมื่อออเดอร์สำเร็จ/ยกเลิก POS จะส่งสำเนาสรุปออเดอร์ขึ้น Cloud
+4) remote-dashboard.html ดูจำนวนออเดอร์ ยอดขาย QR/เงินสด และออเดอร์ล่าสุดแบบสดจากต่างประเทศ
+5) server-cloud.js เป็น Cloud companion server พร้อม WebSocket
+
+การ Deploy Cloud
+- นำโปรเจกต์นี้ขึ้น Node.js hosting ที่รองรับ WebSocket + persistent disk/database
+- ตั้ง Environment:
+  SHOP_KEY=รหัสลับยาวๆของร้าน
+  DASH_TOKEN=รหัสสำหรับคนดู Dashboard
+- start command: npm run start:cloud
+- นำ HTTPS URL ที่ได้กลับมาใส่ใน POS ช่อง Cloud Server URL
+- Shop Key ใน POS ต้องตรงกับ SHOP_KEY
+- คนดูจากต่างประเทศเปิด https://YOUR-SERVER/remote-dashboard.html แล้วใส่ DASH_TOKEN
+
+เรื่องธนาคาร / ยืนยัน QR อัตโนมัติ
+- V64 ยังไม่แกล้งยืนยันเงินเข้าเอง
+- /api/payment/callback ถูกเตรียมไว้แต่จะตอบ 501 จนกว่าจะเชื่อม Merchant QR API ที่ธนาคาร/Payment Provider อนุมัติ
+- เมื่อมี API จริง ต้องตรวจ signature/certificate ของ callback และจับคู่ reference ของออเดอร์ก่อนเปลี่ยนสถานะ paid
+- ห้ามใส่ username/password Mobile Banking ส่วนตัวลงโค้ด
